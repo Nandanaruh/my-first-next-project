@@ -5,9 +5,43 @@ import { useState } from "react";
 export default function LoginForm({title}) {
   const [email, setEmail] = useState("nandana@gmail.com");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  const validateForm = () => {
+    
+    // if((!email) && (!password)){
+    //   setEmailError("Email is required!");
+    //   setPasswordError("Password is required!");
+    //   return false;
+    // } else {
+    //   setEmailError("");
+    //   setPasswordError("");
+    // }
+
+    if(!email){
+      setEmailError("Email is required!");
+      return false;
+    } else {
+      setEmailError("");
+    }
+
+    if(!password){
+      setPasswordError("Password is required!");
+      return false;
+    } else {
+      setPasswordError("");
+    }
+    return true;
+  }
     const handleSubmit = (e) => {
-        e.preventDefault();
+      e.preventDefault();
+      const isValid = validateForm();//Check validation
+      if(isValid){
+        
         console.log({email:email,password:password});
+      }
+        
     }
 
   return (
@@ -35,7 +69,9 @@ export default function LoginForm({title}) {
               className="bg-gray-200 border-gray-300 rounded-lg text-gray-900 focus:ring-1 ring-offset-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="yourname@email.com"
             />
+            {emailError && (<div className="text-red-600 text-xs mt-1 ml-1">{emailError}</div>)}
           </div>
+          
           {/* password */}
           <div>
             <label
@@ -53,7 +89,9 @@ export default function LoginForm({title}) {
               className="bg-gray-200 border-gray-300 rounded-lg text-gray-900 focus:ring-1 ring-offset-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="*********"
             />
+            {passwordError && (<div className="text-red-600 text-xs mt-1 ml-1">{passwordError}</div>)}
           </div>
+          
           {/* remember me */}
           <div className="flex justify-between">
             <div className="flex">
