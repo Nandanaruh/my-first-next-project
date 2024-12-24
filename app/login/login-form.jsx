@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { loginUser } from "@/app/libs/apis/server";
 
 export default function LoginForm({title}) {
   const [email, setEmail] = useState("nandana@gmail.com");
@@ -37,11 +38,11 @@ export default function LoginForm({title}) {
     const handleSubmit = (e) => {
       e.preventDefault();
       const isValid = validateForm();//Check validation
+      
       if(isValid){
-        
         console.log({email:email,password:password});
-      }
-        
+        loginUser();
+      }        
     }
 
   return (
