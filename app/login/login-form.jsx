@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { loginUser } from "@/app/libs/apis/server";
+import { loginUser } from "@/app/lib/apis/server";
 
 export default function LoginForm({title}) {
   const [email, setEmail] = useState("nandana@gmail.com");
@@ -35,13 +35,14 @@ export default function LoginForm({title}) {
     }
     return true;
   }
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
       const isValid = validateForm();//Check validation
-      
+
       if(isValid){
-        console.log({email:email,password:password});
-        loginUser();
+        
+        const login = await loginUser({email:email,password:password});
+        console.log("LOGIN RESPONSE", login);
       }        
     }
 
