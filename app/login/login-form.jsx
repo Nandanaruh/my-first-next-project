@@ -41,7 +41,7 @@ export default function LoginForm({title}) {
 
       if(isValid){
         
-        const login = await loginUser({email:email,password:password});
+        const login = await loginUser({ email: email, password: password });
         console.log("LOGIN RESPONSE", login);
       }        
     }
