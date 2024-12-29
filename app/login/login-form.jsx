@@ -3,14 +3,13 @@
 import { useState } from "react";
 import { loginUser } from "@/app/lib/apis/server";
 
-export default function LoginForm({title}) {
+export default function LoginForm({ title }) {
   const [email, setEmail] = useState("nandana@gmail.com");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
   const validateForm = () => {
-    
     // if((!email) && (!password)){
     //   setEmailError("Email is required!");
     //   setPasswordError("Password is required!");
@@ -20,31 +19,30 @@ export default function LoginForm({title}) {
     //   setPasswordError("");
     // }
 
-    if(!email){
+    if (!email) {
       setEmailError("Email is required!");
       return false;
     } else {
       setEmailError("");
     }
 
-    if(!password){
+    if (!password) {
       setPasswordError("Password is required!");
       return false;
     } else {
       setPasswordError("");
     }
     return true;
-  }
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      const isValid = validateForm();//Check validation
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const isValid = validateForm(); //Check validation
 
-      if(isValid){
-        
-        const login = await loginUser({ email: email, password: password });
-        console.log("LOGIN RESPONSE", login);
-      }        
+    if (isValid) {
+      const login = await loginUser({ email: email, password: password });
+      console.log("LOGIN RESPONSE", login);
     }
+  };
 
   return (
     <div className="w-[380px] mx-auto">
@@ -71,9 +69,11 @@ export default function LoginForm({title}) {
               className="bg-gray-200 border-gray-300 rounded-lg text-gray-900 focus:ring-1 ring-offset-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="yourname@email.com"
             />
-            {emailError && (<div className="text-red-600 text-xs mt-1 ml-1">{emailError}</div>)}
+            {emailError && (
+              <div className="text-red-600 text-xs mt-1 ml-1">{emailError}</div>
+            )}
           </div>
-          
+
           {/* password */}
           <div>
             <label
@@ -91,9 +91,13 @@ export default function LoginForm({title}) {
               className="bg-gray-200 border-gray-300 rounded-lg text-gray-900 focus:ring-1 ring-offset-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="*********"
             />
-            {passwordError && (<div className="text-red-600 text-xs mt-1 ml-1">{passwordError}</div>)}
+            {passwordError && (
+              <div className="text-red-600 text-xs mt-1 ml-1">
+                {passwordError}
+              </div>
+            )}
           </div>
-          
+
           {/* remember me */}
           <div className="flex justify-between">
             <div className="flex">

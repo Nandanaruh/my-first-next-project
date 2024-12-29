@@ -1,9 +1,15 @@
-import { getMovies } from "../lib/apis/server"
+import { getMovies } from "../lib/apis/server";
 
 export default async function DashboardPage() {
-  const movies = await getMovies();
+  //1. Add shadcn card
+  //2. Create movies get end point
+  //3. Read dummy data
+  //4. Render the result
 
-  console.log("MOVIES::",movies);
+  //const movies = await getMovies();
+  const { movies } = await getMovies();
+
+  console.log("MOVIES::", movies);
   return (
     <main>
       <nav className="bg-blue-300 w-full h-16 flex justify-start items-center">
@@ -13,18 +19,14 @@ export default async function DashboardPage() {
       </nav>
       <div className="container mt-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          <div className="h-96 bg-green-400">Div 1</div>
-          <div className="h-96 bg-cyan-400">Div 2</div>
-          <div className="h-96 bg-yellow-400">Div 3</div>
-          <div className="h-96 bg-red-400">Div 4</div>
-          <div className="h-96 bg-orange-400">Div 5</div>
-          <div className="h-96 bg-gray-400">Div 6</div>
-          <div className="h-96 bg-lime-400">Div 7</div>
-          <div className="h-96 bg-green-200">Div 8</div>
-          <div className="h-96 bg-gray-400">Div 9</div>
+          {movies?.length &&
+            movies.map((movie) => (
+              <div key={movie.id} className="h-96 bg-blue-400">
+                {movie?.title}
+              </div>
+            ))}
         </div>
       </div>
     </main>
   );
 }
-
