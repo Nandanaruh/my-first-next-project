@@ -10,15 +10,6 @@ export default function LoginForm({ title }) {
   const [passwordError, setPasswordError] = useState("");
 
   const validateForm = () => {
-    // if((!email) && (!password)){
-    //   setEmailError("Email is required!");
-    //   setPasswordError("Password is required!");
-    //   return false;
-    // } else {
-    //   setEmailError("");
-    //   setPasswordError("");
-    // }
-
     if (!email) {
       setEmailError("Email is required!");
       return false;
