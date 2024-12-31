@@ -30,7 +30,8 @@ export default async function DashboardPage() {
                     <CardTitle>
                       {movie?.title}
                       <span className="text-xs font-normal text-gray-500">
-                        -{movie?.year ?? "N/A"}
+                        {" - "}
+                        {movie?.year ?? "N/A"}
                       </span>
                     </CardTitle>
                     <CardDescription className="text-center"></CardDescription>
@@ -47,11 +48,16 @@ export default async function DashboardPage() {
                         priority="true"
                       />
                     </div>
-                    <p className="line-clamp-3">{movie?.plot}</p>
-                    <div>
-                      <Badge variant="success" className="font-medium">
-                        Rated: {movie.rated ?? "N/A"}
-                      </Badge>
+                    <div className="flex flex-col justify-between h-[154px]">
+                      <p className="line-clamp-3 text-xs">{movie?.plot}</p>
+                      <div className="text-sm text-blue-900 font-semibold">
+                        {movie?.genres?.length && movie?.genres.join(" / ")}
+                      </div>
+                      <div>
+                        <Badge variant="success" className="font-medium">
+                          Rated: {movie.rated ?? "N/A"}
+                        </Badge>
+                      </div>
                     </div>
                   </CardContent>
                   <CardFooter className="flex justify-between"></CardFooter>
