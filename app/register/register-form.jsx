@@ -10,11 +10,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Label } from "@radix-ui/react-label";
-//Keep this as a client component
 import { useState } from "react";
 import Link from "next/link";
 
-export default function RegisterForm({ title }) {
+const DEFAULT_ERROR = {
+  error: false,
+  message: "",
+};
+
+export default function RegisterForm() {
+  const [error, setError] = useState(DEFAULT_ERROR);
   const handleSubmitForm = async (event) => {
     event?.preventDefault();
     const formData = new FormData(event?.currentTarget);
@@ -22,7 +27,17 @@ export default function RegisterForm({ title }) {
     const email = formData.get("email") ?? "";
     const password = formData.get("password") ?? "";
     const confirmPassword = formData.get("confirmPassword") ?? "";
-    console.log("Submit", { name, email, password, confirmPassword });
+
+    //console.log("Submit", { name, email, password, confirmPassword });
+
+    if (name && email && password && confirmPassword) {
+      if (password === confirmPassword) {
+        setError(DEFAULT_ERROR);
+      } else {
+        setError({ error: true, message: "Password doesn't match." });
+      }
+    }
+    console.log("Error", error);
   };
 
   return (
@@ -46,6 +61,7 @@ export default function RegisterForm({ title }) {
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="email">Email</Label>
                 <Input
+                  type="email"
                   id="email"
                   name="email"
                   placeholder="yourname@example.com"
@@ -68,6 +84,14 @@ export default function RegisterForm({ title }) {
                   name="confirmPassword"
                   placeholder="Enter password again to confirm"
                 />
+              </div>
+              {/* form errors */}
+              <div className="flex justify-center">
+                {error.error && (
+                  <span className="text-red-600 text-xs text-center">
+                    {error.message}
+                  </span>
+                )}
               </div>
               <div className="flex justify-center gap text-xs">
                 Already have an account ?
