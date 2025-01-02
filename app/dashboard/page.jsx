@@ -1,4 +1,5 @@
 import { Image } from "lucide-react";
+import { FaStar } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -53,10 +54,19 @@ export default async function DashboardPage() {
                       <div className="text-sm text-blue-900 font-semibold">
                         {movie?.genres?.length && movie?.genres.join(" / ")}
                       </div>
-                      <div>
+                      <div className="flex flex-row justify-between items-center">
                         <Badge variant="success" className="font-medium">
                           Rated: {movie.rated ?? "N/A"}
                         </Badge>
+                        <div
+                          className="flex flex-row gap-1 items-center"
+                          title="IMBb Rating"
+                        >
+                          <FaStar className="text-yellow-500" />
+                          <span className="font-semibold text-sm">
+                            {movie?.imbd?.rating ?? 0}/10
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </CardContent>
