@@ -12,6 +12,7 @@ import {
 import { Label } from "@radix-ui/react-label";
 import { useState } from "react";
 import Link from "next/link";
+import { registerUser } from "@/app/lib/apis/server";
 
 const DEFAULT_ERROR = {
   error: false,
@@ -23,21 +24,29 @@ export default function RegisterForm() {
   const handleSubmitForm = async (event) => {
     event?.preventDefault();
     const formData = new FormData(event?.currentTarget);
-    const name = formData.get("name") ?? "";
-    const email = formData.get("email") ?? "";
-    const password = formData.get("password") ?? "";
+    // const name = formData.get("name") ?? "";
+    // const email = formData.get("email") ?? "";
+    // const password = formData.get("password") ?? "";
+    const name = formData.get("name").toString();
+    const email = formData.get("email").toString();
+    const password = formData.get("password").toString();
     const confirmPassword = formData.get("confirmPassword") ?? "";
-
-    //console.log("Submit", { name, email, password, confirmPassword });
-
+    //Basic validation only
     if (name && email && password && confirmPassword) {
       if (password === confirmPassword) {
         setError(DEFAULT_ERROR);
+        await registerUser({
+          name,
+          email,
+          password,
+        });
       } else {
         setError({ error: true, message: "Password doesn't match." });
       }
     }
-    console.log("Error", error);
+    if (setError) {
+      console.log("Error", error);
+    }
   };
 
   return (

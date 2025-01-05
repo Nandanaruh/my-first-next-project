@@ -11,6 +11,15 @@ export const loginUser = async (loginData) => {
   });
   console.log("LOGIN ACTION", response.json());
 };
+// Register user
+export const registerUser = async (formData) => {
+  try {
+    const response = await api.post("register", { json: formData });
+  } catch (error) {
+    console.log("Registration error", error);
+  }
+};
+
 //Get movies using api.get
 export const getMovies = async () => {
   try {

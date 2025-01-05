@@ -64,7 +64,7 @@ export default async function DashboardPage() {
                         >
                           <FaStar className="text-yellow-500" />
                           <span className="font-semibold text-sm">
-                            {movie?.imbd?.rating ?? 0}/10
+                            {movie?.imdb?.rating ?? 0}/10
                           </span>
                         </div>
                       </div>

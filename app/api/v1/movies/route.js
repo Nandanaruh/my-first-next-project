@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export const GET = async (req) => {
   try {
     const client = await clientPromise();
-    //sample_mflix
+    //database name - sample_mflix
     const db = client.db("sample_mflix");
     const movies = await db
       .collection("movies")
@@ -15,6 +15,10 @@ export const GET = async (req) => {
     return NextResponse.json(movies);
   } catch (error) {
     console.log("Mongodb error", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 },
+    );
   }
-  return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  //return NextResponse.json({ error: "Internal server error" }, { status: 500 });
 };
