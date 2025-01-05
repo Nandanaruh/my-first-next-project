@@ -1,7 +1,6 @@
 import { api } from "../apis/api";
 
 export const loginUser = async (loginData) => {
-  //console.log(loginData);
   const response = await fetch("http://localhost:3000/api/v1/login", {
     method: "POST",
     body: JSON.stringify({
@@ -15,6 +14,7 @@ export const loginUser = async (loginData) => {
 export const registerUser = async (formData) => {
   try {
     const response = await api.post("register", { json: formData });
+    console.log(response);
   } catch (error) {
     console.log("Registration error", error);
   }

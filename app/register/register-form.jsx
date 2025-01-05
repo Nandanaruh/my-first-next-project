@@ -29,7 +29,7 @@ export default function RegisterForm() {
     // const password = formData.get("password") ?? "";
     const name = formData.get("name").toString();
     const email = formData.get("email").toString();
-    const password = formData.get("password").toString();
+    const password = formData.get("password");
     const confirmPassword = formData.get("confirmPassword") ?? "";
     //Basic validation only
     if (name && email && password && confirmPassword) {
