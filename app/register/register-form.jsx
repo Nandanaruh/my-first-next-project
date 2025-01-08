@@ -1,7 +1,8 @@
 "use client";
+import { useState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import { Input } from "@/components/ui/input";
 import {
   Card,
   CardContent,
@@ -10,9 +11,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
-import { useState } from "react";
-import Link from "next/link";
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/hooks/use-toast";
 import { registerUser } from "@/app/lib/apis/server";
 
 const DEFAULT_ERROR = {
@@ -23,6 +25,8 @@ const DEFAULT_ERROR = {
 export default function RegisterForm() {
   const [error, setError] = useState(DEFAULT_ERROR);
   const [isLoading, setLoading] = useState(false);
+  const { toast } = useToast();
+
   const handleSubmitForm = async (event) => {
     event?.preventDefault();
     const formData = new FormData(event?.currentTarget);
@@ -34,23 +38,34 @@ export default function RegisterForm() {
     const password = formData.get("password");
     const confirmPassword = formData.get("confirmPassword") ?? "";
     //Basic validation only
-    if (name && email && password && confirmPassword) {
-      if (password === confirmPassword) {
-        setError(DEFAULT_ERROR);
-        setLoading(true);
-        const registerResponse = await registerUser({
-          name,
-          email,
-          password,
-        });
-        setLoading(false);
-        if (registerResponse?.error) {
-          setError({ error: true, message: registerResponse.error });
-        }
+    // if (name && email && password && confirmPassword) {
+    if (password === confirmPassword) {
+      setError(DEFAULT_ERROR);
+      setLoading(true);
+      const registerResponse = await registerUser({
+        name,
+        email,
+        password,
+      });
+      setLoading(false);
+      if (registerResponse?.error) {
+        setError({ error: true, message: registerResponse.error });
       } else {
-        setError({ error: true, message: "Password doesn't match." });
+        toast({
+          variant: "success",
+          title: "Registration successful.",
+          description: "Please continue with Login.",
+          action: (
+            <ToastAction altText="Login" className="hover:bg-green-700/90">
+              Login
+            </ToastAction>
+          ),
+        });
       }
+    } else {
+      setError({ error: true, message: "Password doesn't match." });
     }
+    //}
   };
 
   return (
