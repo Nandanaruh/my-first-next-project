@@ -14,9 +14,22 @@ export const loginUser = async (loginData) => {
 export const registerUser = async (formData) => {
   try {
     const response = await api.post("register", { json: formData });
-    console.log(response);
+    if (response.ok) {
+      return response.json();
+    } else {
+      return undefined;
+    }
   } catch (error) {
-    console.log("Registration error", error);
+    const status = error.response.status;
+    const responseBody = await error.response.json();
+    if (status && responseBody) {
+      if (status === 409) {
+        return responseBody;
+      } else {
+        return undefined;
+      }
+    }
+    return undefined;
   }
 };
 

@@ -22,7 +22,7 @@ export const POST = async (req) => {
     console.log("Is existing user", existingUser);
     if (existingUser) {
       return NextResponse.json(
-        { error: "User with this email already exist" },
+        { error: "User with this email already exist." },
         { status: 409 },
       );
     }
@@ -44,14 +44,14 @@ export const POST = async (req) => {
       });
     } else {
       return NextResponse.json(
-        { error: "Internal server error" },
+        { error: "Internal server error." },
         { status: 500 },
       );
     }
   } catch (error) {
-    console.log("Mongodb error", error);
+    console.log("Mongodb error.", error);
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: "Internal server error." },
       { status: 500 },
     );
   }
