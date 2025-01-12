@@ -38,34 +38,47 @@ export default function RegisterForm() {
     const password = formData.get("password");
     const confirmPassword = formData.get("confirmPassword") ?? "";
     //Basic validation only
-    // if (name && email && password && confirmPassword) {
-    if (password === confirmPassword) {
-      setError(DEFAULT_ERROR);
-      setLoading(true);
-      const registerResponse = await registerUser({
-        name,
-        email,
-        password,
-      });
-      setLoading(false);
-      if (registerResponse?.error) {
-        setError({ error: true, message: registerResponse.error });
-      } else {
-        toast({
-          variant: "success",
-          title: "Registration successful.",
-          description: "Please continue with Login.",
-          action: (
-            <ToastAction altText="Login" className="hover:bg-green-700/90">
-              Login
-            </ToastAction>
-          ),
+    if (name && email && password && confirmPassword) {
+      if (password === confirmPassword) {
+        setError(DEFAULT_ERROR);
+        setLoading(true);
+        const registerResponse = await registerUser({
+          name,
+          email,
+          password,
         });
+        setLoading(false);
+        if (registerResponse?.error) {
+          setError({ error: true, message: registerResponse.error });
+        } else {
+          toast({
+            variant: "success",
+            title: "Registration successful.",
+            description: "Please continue with Login.",
+            action: (
+              <ToastAction altText="Login" className="hover:bg-green-700/90">
+                Login
+              </ToastAction>
+            ),
+          });
+        }
+      } else {
+        setError({ error: true, message: "Password doesn't match." });
       }
-    } else {
-      setError({ error: true, message: "Password doesn't match." });
+    } else if (!name || !email || !password || !confirmPassword) {
+      if (!name) {
+        setError({ error: true, message: "Name is required!" });
+      }
+      if (!email) {
+        setError({ error: true, message: "Email is required!" });
+      }
+      if (!password) {
+        setError({ error: true, message: "Password is required!" });
+      }
+      if (!confirmPassword) {
+        setError({ error: true, message: "Confirm password is required!" });
+      }
     }
-    //}
   };
 
   return (
