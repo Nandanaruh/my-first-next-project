@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/hooks/use-toast";
-import { registerUser } from "@/app/lib/apis/server";
+import { registerUser } from "@/app/lib/server";
 
 const DEFAULT_ERROR = {
   error: false,

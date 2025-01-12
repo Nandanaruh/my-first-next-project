@@ -1,4 +1,4 @@
-import { api } from "../apis/api";
+import { api } from "@/app/lib/api";
 
 export const loginUser = async (loginData) => {
   const response = await fetch("http://localhost:3000/api/v1/login", {
@@ -13,7 +13,7 @@ export const loginUser = async (loginData) => {
 // Register user
 export const registerUser = async (formData) => {
   try {
-    const response = await api.post("register", { json: formData });
+    const response = await api.post("v1/register", { json: formData });
     if (response.ok) {
       return response.json();
     } else {
@@ -36,7 +36,7 @@ export const registerUser = async (formData) => {
 //Get movies using api.get
 export const getMovies = async () => {
   try {
-    const response = await api.get("movies", { cache: "no-store" });
+    const response = await api.get("v1/movies", { cache: "no-store" });
 
     if (response.ok) {
       return response.json();

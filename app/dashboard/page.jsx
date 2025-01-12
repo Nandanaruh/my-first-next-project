@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { getMovies } from "../lib/apis/server";
+import { getMovies } from "../lib/server";
 
 export default async function DashboardPage() {
   const moviesQuery = await getMovies();
