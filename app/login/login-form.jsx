@@ -1,13 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { loginUser } from "@/app/lib/server";
+import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
+// import { loginUser } from "@/app/lib/server";
+import { signIn } from "../lib/auth-client";
+import { redirect } from "next/navigation";
 
 export default function LoginForm({ title }) {
   const [email, setEmail] = useState("nandana@gmail.com");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setLoading] = useState(false);
 
   const validateForm = () => {
     if (!email) {
@@ -30,8 +36,24 @@ export default function LoginForm({ title }) {
     const isValid = validateForm(); //Check validation
 
     if (isValid) {
-      const login = await loginUser({ email: email, password: password });
-      console.log("LOGIN RESPONSE", login);
+      // const login = await loginUser({ email: email, password: password });
+      // console.log("LOGIN RESPONSE", login);
+      await signIn.email(
+        {
+          email,
+          password,
+        },
+        {
+          onSuccess: () => {
+            redirect("/dashboard");
+          },
+          onError: (ctx) => {
+            if (ctx.error.status === 401) {
+              setError("You are not registered!");
+            }
+          },
+        },
+      );
     }
   };
 
@@ -115,14 +137,28 @@ export default function LoginForm({ title }) {
               Forgot password?
             </a>
           </div>
+          {/* not registered error */}
+          {error && (
+            <div className="text-red-600 text-sm animate-pulse flex items-center justify-center">
+              {error}
+            </div>
+          )}
           {/* submit button */}
           <div>
-            <button
+            {/* <button
               type="submit"
-              className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
+              className="w-full text-white bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5"
             >
               Sign in
-            </button>
+            </button> */}
+            <Button
+              className="flex-1 w-full"
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading && <Loader2 className="animate-spin" />}
+              Login
+            </Button>
           </div>
           <div className="text-sm text-gray-500 font-medium flex justify-center space-x-1">
             <span>Not registered?</span>
