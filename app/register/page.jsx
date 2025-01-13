@@ -1,6 +1,16 @@
+//This page for SSR
+
+import { headers } from "next/headers";
+import { auth } from "@/app/lib/auth";
+import { redirect } from "next/navigation";
 import RegisterForm from "./register-form";
-//Server component for SSR - Sever Side Rendering
-export default function RegisterPage() {
+export default async function RegisterPage() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (session) {
+    redirect("/dashboard");
+  }
   return (
     <div className="container mx-auto">
       <RegisterForm title="Register" />
