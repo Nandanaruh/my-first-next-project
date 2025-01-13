@@ -13,9 +13,10 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
-import { ToastAction } from "@/components/ui/toast";
-import { useToast } from "@/hooks/use-toast";
-import { registerUser } from "@/app/lib/server";
+//import { ToastAction } from "@/components/ui/toast";
+//import { useToast } from "@/hooks/use-toast";
+//import { registerUser } from "@/app/lib/server";
+import { signUp } from "@/app/lib/auth-client";
 
 const DEFAULT_ERROR = {
   error: false,
@@ -25,7 +26,7 @@ const DEFAULT_ERROR = {
 export default function RegisterForm() {
   const [error, setError] = useState(DEFAULT_ERROR);
   const [isLoading, setLoading] = useState(false);
-  const { toast } = useToast();
+  //const { toast } = useToast();
 
   const handleSubmitForm = async (event) => {
     event?.preventDefault();
@@ -38,47 +39,57 @@ export default function RegisterForm() {
     const password = formData.get("password");
     const confirmPassword = formData.get("confirmPassword") ?? "";
     //Basic validation only
-    if (name && email && password && confirmPassword) {
-      if (password === confirmPassword) {
-        setError(DEFAULT_ERROR);
-        setLoading(true);
-        const registerResponse = await registerUser({
-          name,
-          email,
-          password,
-        });
-        setLoading(false);
-        if (registerResponse?.error) {
-          setError({ error: true, message: registerResponse.error });
-        } else {
-          toast({
-            variant: "success",
-            title: "Registration successful.",
-            description: "Please continue with Login.",
-            action: (
-              <ToastAction altText="Login" className="hover:bg-green-700/90">
-                Login
-              </ToastAction>
-            ),
-          });
-        }
-      } else {
-        setError({ error: true, message: "Password doesn't match." });
+    //if (name && email && password && confirmPassword) {
+    if (password === confirmPassword) {
+      setError(DEFAULT_ERROR);
+      // setLoading(true);
+      // const registerResponse = await registerUser({
+      //   name,
+      //   email,
+      //   password,
+      // });
+      // setLoading(false);
+      // if (registerResponse?.error) {
+      //   setError({ error: true, message: registerResponse.error });
+      // } else {
+      //   toast({
+      //     variant: "success",
+      //     title: "Registration successful.",
+      //     description: "Please continue with Login.",
+      //     action: (
+      //       <ToastAction altText="Login" className="hover:bg-green-700/90">
+      //         Login
+      //       </ToastAction>
+      //     ),
+      //   });
+      // }
+      const { data, error } = await signUp.email(
+        {
+          email: email,
+          password: password,
+          name: name,
+          image: undefined,
+        },
+        {
+          onRequest: () => {},
+          onSuccess: (ctx) => {
+            console.log("onSuccess", ctx);
+          },
+          onError: (ctx) => {
+            console.log("onError", ctx);
+            if (ctx) {
+              setError({ error: true, message: ctx.error.message });
+            }
+          },
+        },
+      );
+      if (data) {
+        console.log("Data", data);
       }
-    } else if (!name || !email || !password || !confirmPassword) {
-      if (!name) {
-        setError({ error: true, message: "Name is required!" });
-      }
-      if (!email) {
-        setError({ error: true, message: "Email is required!" });
-      }
-      if (!password) {
-        setError({ error: true, message: "Password is required!" });
-      }
-      if (!confirmPassword) {
-        setError({ error: true, message: "Confirm password is required!" });
-      }
+    } else {
+      setError({ error: true, message: "Password doesn't match." });
     }
+    //}
   };
 
   return (
@@ -88,7 +99,7 @@ export default function RegisterForm() {
           <CardTitle className="text-center text-xl font-semibold text-gray-900">
             Create an account
           </CardTitle>
-          <CardDescription className="text-center text-sm bg-gray-500/50 text-white rounded inline-block">
+          <CardDescription className="text-center text-sm text-gray-400 inline-block">
             Enter your information to get start
           </CardDescription>
         </CardHeader>
