@@ -76,7 +76,6 @@ export default function RegisterForm() {
             console.log("onSuccess", ctx);
           },
           onError: (ctx) => {
-            console.log("onError", ctx);
             if (ctx) {
               setError({ error: true, message: ctx.error.message });
             }
@@ -140,7 +139,7 @@ export default function RegisterForm() {
               {/* form errors */}
               <div className="flex justify-center">
                 {error.error && (
-                  <span className="text-red-600 text-xs text-center">
+                  <span className="text-red-600 text-xs text-center animate-pulse duration-1000">
                     {error.message}
                   </span>
                 )}
