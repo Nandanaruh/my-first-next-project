@@ -58,8 +58,11 @@ export default function LoginForm({ title }) {
             redirect("/dashboard");
           },
           onError: (ctx) => {
+            setLoading(true);
             if (ctx.error.status === 401) {
               setError("You are not registered!");
+            } else {
+              setLoading(false);
             }
           },
         },
@@ -77,28 +80,6 @@ export default function LoginForm({ title }) {
               {title}
             </h3>
             {/* email */}
-            {/* <div>
-              <label
-                htmlFor="email"
-                className="text-sm font-medium text-gray-900 block mb-2"
-              >
-                Your email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="bg-gray-200 border-gray-400 rounded-lg text-gray-900 focus:ring-1 ring-offset-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                placeholder="yourname@email.com"
-              />
-              {emailError && (
-                <div className="text-red-600 text-xs mt-1 ml-1 animate-pulse duration-1000">
-                  {emailError}
-                </div>
-              )}
-            </div> */}
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -115,30 +96,7 @@ export default function LoginForm({ title }) {
                 </div>
               )}
             </div>
-
             {/* password */}
-            {/* <div>
-              <label
-                htmlFor="password"
-                className="text-sm font-medium text-gray-900 block mb-2"
-              >
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="bg-gray-200 border-gray-400 rounded-lg text-gray-900 focus:ring-1 ring-offset-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                placeholder="*********"
-              />
-              {passwordError && (
-                <div className="text-red-600 text-xs mt-1 ml-1 animate-pulse duration-1000">
-                  {passwordError}
-                </div>
-              )}
-            </div> */}
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="password">Password</Label>
               <Input
@@ -147,10 +105,14 @@ export default function LoginForm({ title }) {
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter new password"
+                placeholder="Enter your password"
               />
+              {passwordError && (
+                <div className="text-red-600 text-xs mt-1 ml-1 animate-pulse duration-1000">
+                  {passwordError}
+                </div>
+              )}
             </div>
-
             {/* remember me */}
             <div className="flex justify-between">
               <div className="flex">
@@ -185,12 +147,6 @@ export default function LoginForm({ title }) {
             )}
             {/* submit button */}
             <div>
-              {/* <button
-              type="submit"
-              className="w-full text-white bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5"
-            >
-              Sign in
-            </button> */}
               <Button
                 className="flex-1 w-full"
                 type="submit"
