@@ -39,7 +39,6 @@ export default function RegisterForm() {
     if (password === confirmPassword) {
       setError(DEFAULT_ERROR);
       setLoading(true);
-      setLoading(true);
       const { data, error } = await signUp.email(
         {
           email: email,
@@ -58,7 +57,7 @@ export default function RegisterForm() {
               description: "Please continue with Login.",
               action: (
                 <ToastAction altText="Login" className="hover:bg-green-700/90">
-                  Login
+                  <Link href="/login">Login</Link>
                 </ToastAction>
               ),
             });
@@ -73,12 +72,14 @@ export default function RegisterForm() {
           },
         },
       );
-      setLoading(false);
+
       if (data) {
         console.log("Data", data);
       }
     } else {
+      setLoading(true);
       setError({ error: true, message: "Password doesn't match." });
+      setLoading(false);
     }
     setLoading(false);
     //}
