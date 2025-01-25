@@ -13,9 +13,8 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
-//import { ToastAction } from "@/components/ui/toast";
-//import { useToast } from "@/hooks/use-toast";
-//import { registerUser } from "@/app/lib/server";
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/hooks/use-toast";
 import { signUp } from "@/app/lib/auth-client";
 
 const DEFAULT_ERROR = {
@@ -26,14 +25,11 @@ const DEFAULT_ERROR = {
 export default function RegisterForm() {
   const [error, setError] = useState(DEFAULT_ERROR);
   const [isLoading, setLoading] = useState(false);
-  //const { toast } = useToast();
+  const { toast } = useToast();
 
   const handleSubmitForm = async (event) => {
     event?.preventDefault();
     const formData = new FormData(event?.currentTarget);
-    // const name = formData.get("name") ?? "";
-    // const email = formData.get("email") ?? "";
-    // const password = formData.get("password") ?? "";
     const name = formData.get("name").toString();
     const email = formData.get("email").toString();
     const password = formData.get("password");
@@ -42,27 +38,8 @@ export default function RegisterForm() {
     //if (name && email && password && confirmPassword) {
     if (password === confirmPassword) {
       setError(DEFAULT_ERROR);
-      // setLoading(true);
-      // const registerResponse = await registerUser({
-      //   name,
-      //   email,
-      //   password,
-      // });
-      // setLoading(false);
-      // if (registerResponse?.error) {
-      //   setError({ error: true, message: registerResponse.error });
-      // } else {
-      //   toast({
-      //     variant: "success",
-      //     title: "Registration successful.",
-      //     description: "Please continue with Login.",
-      //     action: (
-      //       <ToastAction altText="Login" className="hover:bg-green-700/90">
-      //         Login
-      //       </ToastAction>
-      //     ),
-      //   });
-      // }
+      setLoading(true);
+      setLoading(true);
       const { data, error } = await signUp.email(
         {
           email: email,
@@ -73,21 +50,37 @@ export default function RegisterForm() {
         {
           onRequest: () => {},
           onSuccess: (ctx) => {
+            setLoading(false);
             console.log("onSuccess", ctx);
+            toast({
+              variant: "success",
+              title: "Registration successful.",
+              description: "Please continue with Login.",
+              action: (
+                <ToastAction altText="Login" className="hover:bg-green-700/90">
+                  Login
+                </ToastAction>
+              ),
+            });
           },
           onError: (ctx) => {
+            setLoading(true);
             if (ctx) {
               setError({ error: true, message: ctx.error.message });
+            } else {
+              setLaoding(false);
             }
           },
         },
       );
+      setLoading(false);
       if (data) {
         console.log("Data", data);
       }
     } else {
       setError({ error: true, message: "Password doesn't match." });
     }
+    setLoading(false);
     //}
   };
 
