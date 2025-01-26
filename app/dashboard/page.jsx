@@ -1,4 +1,3 @@
-import { headers } from "next/headers";
 import { Image } from "lucide-react";
 import { FaStar } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
@@ -11,15 +10,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { getMovies } from "@/app/lib/server";
-import { auth } from "@/app/lib/auth";
 
 export default async function DashboardPage() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
-  console.log("SESSION::", session);
-
   const moviesQuery = await getMovies();
   console.log(moviesQuery);
   return (
