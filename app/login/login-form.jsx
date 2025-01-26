@@ -47,6 +47,7 @@ export default function LoginForm({ title }) {
     const isValid = validateForm(); //Check validation
 
     if (isValid) {
+      setLoading(true);
       await signIn.email(
         {
           email,
@@ -58,10 +59,8 @@ export default function LoginForm({ title }) {
             redirect("/dashboard");
           },
           onError: (ctx) => {
-            setLoading(true);
             if (ctx.error.status === 401) {
-              setError("You are not registered!");
-            } else {
+              setError(ctx.error.message);
               setLoading(false);
             }
           },
