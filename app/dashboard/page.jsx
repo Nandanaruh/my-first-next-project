@@ -1,4 +1,3 @@
-//import { Image } from "lucide-react";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
