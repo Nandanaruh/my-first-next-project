@@ -1,4 +1,5 @@
-import { Image } from "lucide-react";
+//import { Image } from "lucide-react";
+import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -35,12 +36,11 @@ export default async function DashboardPage() {
                 <CardContent>
                   <div className="flex justify-center bg-black mb-2 w-full h-[220px] rounded">
                     <Image
-                      src={movie?.poster}
+                      src={movie?.poster || "/images/movie-placeholder.png"}
                       alt={movie?.title}
                       width={200}
                       height={400}
                       className="h-full w-auto object-contain"
-                      loading="lazy"
                       priority="true"
                     />
                   </div>
