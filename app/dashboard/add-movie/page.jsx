@@ -1,4 +1,10 @@
+import AddMovieForm from "./add-movie-form";
+
 //Server component
 export default function AddMoviePage() {
-  return <div>Add movie page.</div>;
+  return (
+    <div className="space-y-4">
+      <AddMovieForm />
+    </div>
+  );
 }
