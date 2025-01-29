@@ -12,10 +12,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
+import { MultiSelect } from "@/components/multi-select";
 
 export default function AddMovieForm() {
   return (
-    <Card className="max-w-xl mx-auto">
+    <Card className="max-w-2xl mx-auto">
       <CardHeader>
         <CardTitle className="text-center text-xl font-semibold text-gray-900">
           Add Movie
@@ -46,6 +47,10 @@ export default function AddMovieForm() {
               name="plot"
               placeholder="Enter the movie plot"
             />
+          </div>
+          <div>
+            <Label htmlFor="genres">Movie Genres</Label>
+            <MultiSelect list={[]} placeholder="Select Movie Genres" />
           </div>
         </CardContent>
         <CardFooter className="w-full flex justify-end space-x-2"></CardFooter>
