@@ -11,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function AddMovieForm() {
   return (
@@ -20,9 +21,34 @@ export default function AddMovieForm() {
           Add Movie
         </CardTitle>
         <CardDescription className="text-center text-sm text-gray-400 inline-block">
-          Add a movie to Mflix Dashboard
+          Add a movie to Mflix Dashboard.
         </CardDescription>
       </CardHeader>
+      <form>
+        <CardContent className="space-y-4">
+          <div>
+            <Label htmlFor="title">Movie Title</Label>
+            <Input id="title" name="title" placeholder="Enter movie title" />
+          </div>
+          <div>
+            <Label htmlFor="title">Movie Year</Label>
+            <Input
+              id="year"
+              name="year"
+              type="number"
+              placeholder="Enter the year"
+            />
+          </div>
+          <div>
+            <Label htmlFor="plot">Movie Plot</Label>
+            <Textarea
+              id="plot"
+              name="plot"
+              placeholder="Enter the movie plot"
+            />
+          </div>
+        </CardContent>
+      </form>
     </Card>
   );
 }
