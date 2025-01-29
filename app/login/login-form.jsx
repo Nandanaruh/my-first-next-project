@@ -71,7 +71,7 @@ export default function LoginForm({ title }) {
 
   return (
     <div className="w-[380px] mx-auto">
-      <Card className="bg-blue-50/90 w-[380px]">
+      <Card className="bg-white w-[380px]">
         <div className="p-4">
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* title */}

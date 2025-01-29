@@ -87,7 +87,7 @@ export default function RegisterForm() {
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <Card className="bg-blue-50/90 w-[380px]">
+      <Card className="bg-white w-[380px]">
         <CardHeader>
           <CardTitle className="text-center text-xl font-semibold text-gray-900">
             Create an account

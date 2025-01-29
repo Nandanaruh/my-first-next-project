@@ -12,7 +12,7 @@ export default async function RegisterPage() {
     redirect("/dashboard");
   }
   return (
-    <div className="container mx-auto">
+    <div className="bg-blue-50/90 container mx-auto">
       <RegisterForm title="Register" />
     </div>
   );
