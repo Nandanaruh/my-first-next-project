@@ -15,7 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 export default function AddMovieForm() {
   return (
-    <Card className="max-w-2xl mx-auto">
+    <Card className="max-w-xl mx-auto">
       <CardHeader>
         <CardTitle className="text-center text-xl font-semibold text-gray-900">
           Add Movie
@@ -48,6 +48,7 @@ export default function AddMovieForm() {
             />
           </div>
         </CardContent>
+        <CardFooter className="w-full flex justify-end space-x-2"></CardFooter>
       </form>
     </Card>
   );
