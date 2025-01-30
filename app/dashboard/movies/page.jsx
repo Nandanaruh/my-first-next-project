@@ -34,14 +34,16 @@ export default async function MoviesPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="flex justify-center bg-black mb-2 w-full h-[220px] rounded">
-                    <Image
-                      src={movie?.poster || "/images/movie-placeholder.png"}
-                      alt={movie?.title}
-                      width={200}
-                      height={400}
-                      className="h-full w-auto object-contain"
-                      priority="true"
-                    />
+                    {movie.poster && (
+                      <Image
+                        src={movie?.poster}
+                        alt={movie?.title}
+                        width={200}
+                        height={400}
+                        className="h-full w-auto object-contain"
+                        priority="true"
+                      />
+                    )}
                   </div>
                   <div className="flex flex-col justify-between h-[154px]">
                     <p className="line-clamp-3 text-xs">{movie?.plot}</p>
