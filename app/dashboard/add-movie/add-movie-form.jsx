@@ -1,5 +1,5 @@
 "use client";
-
+import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -26,13 +26,27 @@ import { Loader2 } from "lucide-react";
 import { createMovie } from "@/app/lib/actions/movies";
 
 export default function AddMovieForm() {
+  const { toast } = useToast();
   const [genres, setGenres] = useState([]);
   const [rated, setRated] = useState("");
   const [isLoading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+
   const genresList = GENRES.map((genre) => ({
     label: genre,
     value: genre,
   }));
+
+  const validateForm = (title, year, plot) => {
+    let errors = {};
+    if (!title) errors.title = "Movie title is required.";
+    if (!year) errors.year = "Movie year is required.";
+    if (!plot) errors.plot = "Movie plot is required.";
+    if (genres.length === 0)
+      errors.genres = "At least one genre must be selected.";
+    if (!rated) errors.rated = "Movie rating is required.";
+    return errors;
+  };
 
   const handleSubmitForm = async (event) => {
     event?.preventDefault();
@@ -41,12 +55,31 @@ export default function AddMovieForm() {
     const plot = formData.get("plot").toString();
     const year = Number(formData.get("year"));
 
-    if (title && year && plot) {
-      setLoading(true);
+    const validationErrors = validateForm(title, year, plot);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setLoading(true);
+    try {
       await createMovie({ title, year, plot, genres, rated });
+      toast({
+        variant: "success",
+        title: "Movie Added Successfully",
+        description: `${title} has been added to the database.`,
+      });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error Adding Movie",
+        description: error.message || "Something went wrong.",
+      });
+    } finally {
       setLoading(false);
     }
   };
+
   return (
     <Card className="max-w-2xl mx-auto">
       <CardHeader>
@@ -62,6 +95,9 @@ export default function AddMovieForm() {
           <div>
             <Label htmlFor="title">Movie Title</Label>
             <Input id="title" name="title" placeholder="Enter movie title" />
+            {errors.title && (
+              <p className="text-red-500 text-sm">{errors.title}</p>
+            )}
           </div>
           <div>
             <Label htmlFor="year">Movie Year</Label>
@@ -71,6 +107,9 @@ export default function AddMovieForm() {
               type="number"
               placeholder="Enter the year"
             />
+            {errors.year && (
+              <p className="text-red-500 text-sm">{errors.year}</p>
+            )}
           </div>
           <div>
             <Label htmlFor="plot">Movie Plot</Label>
@@ -79,6 +118,9 @@ export default function AddMovieForm() {
               name="plot"
               placeholder="Enter the movie plot"
             />
+            {errors.plot && (
+              <p className="text-red-500 text-sm">{errors.plot}</p>
+            )}
           </div>
           <div>
             <Label htmlFor="genres">Movie Genres</Label>
@@ -87,6 +129,9 @@ export default function AddMovieForm() {
               placeholder="Select Movie Genres"
               onValueChange={setGenres}
             />
+            {errors.genres && (
+              <p className="text-red-500 text-sm">{errors.genres}</p>
+            )}
           </div>
           <div>
             <Label htmlFor="rated">Movie Rated</Label>
@@ -102,10 +147,13 @@ export default function AddMovieForm() {
                 ))}
               </SelectContent>
             </Select>
+            {errors.rated && (
+              <p className="text-red-500 text-sm">{errors.rated}</p>
+            )}
           </div>
         </CardContent>
         <CardFooter className="w-full flex justify-end space-x-2">
-          <Button type="reset" variant="outline">
+          <Button type="reset" variant="outline" onClick={() => setErrors({})}>
             Clear Form
           </Button>
           <Button type="submit" disabled={isLoading}>
