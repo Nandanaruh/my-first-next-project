@@ -63,7 +63,6 @@ export default function AddMovieForm() {
 
     setLoading(true);
     try {
-      //await createMovie({ title, year, plot, genres, rated });
       const response = await createMovie({ title, year, plot, genres, rated });
 
       if (!response.success) {
