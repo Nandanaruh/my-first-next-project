@@ -63,7 +63,13 @@ export default function AddMovieForm() {
 
     setLoading(true);
     try {
-      await createMovie({ title, year, plot, genres, rated });
+      //await createMovie({ title, year, plot, genres, rated });
+      const response = await createMovie({ title, year, plot, genres, rated });
+
+      if (!response.success) {
+        setErrors({ title: response.message });
+        return;
+      }
       toast({
         variant: "success",
         title: "Movie Added Successfully",
