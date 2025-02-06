@@ -37,11 +37,12 @@ export default function AddMovieForm() {
     value: genre,
   }));
 
-  const validateForm = (title, year, plot) => {
+  const validateForm = (title, year, plot, poster) => {
     let errors = {};
     if (!title) errors.title = "Movie title is required.";
     if (!year) errors.year = "Movie year is required.";
     if (!plot) errors.plot = "Movie plot is required.";
+    if (!poster) errors.poster = "Movie URL is required.";
     if (genres.length === 0)
       errors.genres = "At least one genre must be selected.";
     if (!rated) errors.rated = "Movie rating is required.";
@@ -52,10 +53,11 @@ export default function AddMovieForm() {
     event?.preventDefault();
     const formData = new FormData(event?.currentTarget);
     const title = formData.get("title").toString();
+    const poster = formData.get("poster").toString();
     const plot = formData.get("plot").toString();
     const year = Number(formData.get("year"));
 
-    const validationErrors = validateForm(title, year, plot);
+    const validationErrors = validateForm(title, year, plot, poster);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
@@ -63,7 +65,14 @@ export default function AddMovieForm() {
 
     setLoading(true);
     try {
-      const response = await createMovie({ title, year, plot, genres, rated });
+      const response = await createMovie({
+        title,
+        year,
+        plot,
+        genres,
+        rated,
+        poster,
+      });
 
       if (!response.success) {
         setErrors({ title: response.message });
@@ -154,6 +163,18 @@ export default function AddMovieForm() {
             </Select>
             {errors.rated && (
               <p className="text-red-500 text-sm">{errors.rated}</p>
+            )}
+          </div>
+          <div>
+            <Label htmlFor="poster">Poster URL</Label>
+            <Input
+              id="poster"
+              name="poster"
+              placeholder="Enter https://m.media-amazon.com/images/M/MV5BMGJiYjBiMzctYzQ2NC00MjdjLTlhNDItNmExNDY1NTkyNWE4XkEyXkFqcGc@._V1_.jpgthe movie plot"
+              type="text"
+            />
+            {errors.poster && (
+              <p className="text-red-500 text-sm">{errors.poster}</p>
             )}
           </div>
         </CardContent>

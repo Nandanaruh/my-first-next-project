@@ -7,7 +7,7 @@ export const GET = async (req) => {
     //database name - sample_mflix
     const db = client.db("sample_mflix");
     const movies = await db
-      .collection("movies")
+      .collection("movies_new")
       .find({})
       .sort({ metacritic: -1 })
       .limit(10)
