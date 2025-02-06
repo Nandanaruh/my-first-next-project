@@ -170,7 +170,8 @@ export default function AddMovieForm() {
             <Input
               id="poster"
               name="poster"
-              placeholder="Enter https://m.media-amazon.com/images/M/MV5BMGJiYjBiMzctYzQ2NC00MjdjLTlhNDItNmExNDY1NTkyNWE4XkEyXkFqcGc@._V1_.jpgthe movie plot"
+              placeholder="Enter image URL"
+              defaultValue="https://m.media-amazon.com/images/I/51WXHxGf7CL._AC_SR300,300.jpg"
               type="text"
             />
             {errors.poster && (
