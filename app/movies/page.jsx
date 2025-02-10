@@ -10,24 +10,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { getMovies } from "@/app/lib/server";
-import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default async function MoviesPage() {
   const moviesQuery = await getMovies();
   console.log(moviesQuery);
   return (
     <div className="space-y-4">
-      {/* <h1 className="text-3xl font-bold">Movies</h1> */}
-      <div className="flex justify-end">
-        <Link href="/movies">
-          <Button variant="outline">
-            <Eye />
-            View as User
-          </Button>
-        </Link>
-      </div>
+      <h1 className="text-3xl font-bold">Browse Movies</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {moviesQuery?.length &&
           moviesQuery.map((movie) => (
