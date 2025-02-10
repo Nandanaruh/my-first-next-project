@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import {
   Table,
   TableBody,
@@ -39,7 +40,16 @@ export default function MovieTable({ movies }) {
         <TableBody>
           {movies.map((movie) => (
             <TableRow key={movie.id}>
-              <TableCell>Poster</TableCell>
+              <TableCell>
+                <Image
+                  src={movie.poster ?? "/images/avatar.jpg"}
+                  alt="Poster"
+                  width={80}
+                  height={160}
+                  className="w-20 h-auto aspect-auto brightness-90 transition-transform duration-300 hover:brightness-105 hover:scale-105 hover:shadow-lg"
+                  priority
+                />
+              </TableCell>
               <TableCell>{movie?.title ?? "N/A"}</TableCell>
               <TableCell>{movie?.year ?? "N/A"}</TableCell>
               <TableCell>{movie?.plot ?? "N/A"}</TableCell>
