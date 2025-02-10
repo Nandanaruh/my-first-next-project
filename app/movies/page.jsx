@@ -2,6 +2,8 @@ import Image from "next/image";
 import { Eye } from "lucide-react";
 import { FaStar } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,15 +12,24 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { getMovies } from "@/app/lib/server";
-import { Button } from "@/components/ui/button";
 
-export default async function MoviesPage() {
+import { getMovies } from "@/app/lib/server";
+
+export default async function MoviesPublicPage() {
   const moviesQuery = await getMovies();
   console.log(moviesQuery);
   return (
-    <div className="space-y-4 mx-8 mt-6">
-      <h1 className="text-blue-500 text-2xl font-bold">Browse Movies</h1>
+    <div className="space-y-4 mx-8 mt-10">
+      <div className="flex flex-row justify-between items-center">
+        <h1 className="text-blue-500 text-2xl font-bold">Browse Movies</h1>
+        <Link href="/dashboard/movies">
+          <Button variant="outline">
+            <Eye />
+            Go to Dashboard
+          </Button>
+        </Link>
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {moviesQuery?.length &&
           moviesQuery.map((movie) => (
@@ -42,7 +53,7 @@ export default async function MoviesPage() {
                         alt={movie?.title}
                         width={200}
                         height={400}
-                        className="h-full w-auto object-contain transition-transform duration-300 hover:scale-105 hover:shadow-lg"
+                        className="h-full w-auto object-contain brightness-90 transition-transform duration-300 hover:brightness-105 hover:scale-105 hover:shadow-lg"
                         priority="true"
                       />
                     )}
