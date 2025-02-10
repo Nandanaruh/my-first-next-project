@@ -51,7 +51,7 @@ export default async function MoviesPage() {
                         alt={movie?.title}
                         width={200}
                         height={400}
-                        className="h-full w-auto object-contain"
+                        className="h-full w-auto object-contain transition-transform duration-300 hover:scale-105 hover:shadow-lg"
                         priority="true"
                       />
                     )}

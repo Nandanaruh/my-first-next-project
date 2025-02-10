@@ -17,8 +17,8 @@ export default async function MoviesPage() {
   const moviesQuery = await getMovies();
   console.log(moviesQuery);
   return (
-    <div className="space-y-4">
-      <h1 className="text-3xl font-bold">Browse Movies</h1>
+    <div className="space-y-4 mx-8 mt-6">
+      <h1 className="text-blue-500 text-2xl font-bold">Browse Movies</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {moviesQuery?.length &&
           moviesQuery.map((movie) => (
@@ -42,7 +42,7 @@ export default async function MoviesPage() {
                         alt={movie?.title}
                         width={200}
                         height={400}
-                        className="h-full w-auto object-contain"
+                        className="h-full w-auto object-contain transition-transform duration-300 hover:scale-105 hover:shadow-lg"
                         priority="true"
                       />
                     )}
