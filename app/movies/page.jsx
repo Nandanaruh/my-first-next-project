@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Eye } from "lucide-react";
+import { LayoutDashboard } from "lucide-react";
 import { FaStar } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
@@ -23,8 +23,8 @@ export default async function MoviesPublicPage() {
       <div className="flex flex-row justify-between items-center">
         <h1 className="text-blue-500 text-2xl font-bold">Browse Movies</h1>
         <Link href="/dashboard/movies">
-          <Button variant="outline">
-            <Eye />
+          <Button>
+            <LayoutDashboard />
             Go to Dashboard
           </Button>
         </Link>
