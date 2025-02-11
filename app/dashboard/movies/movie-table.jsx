@@ -15,6 +15,7 @@ import EditMovieForm from "./edit-movie-form";
 export default function MovieTable({ movies }) {
   const [editingMovie, setEditingMovie] = useState(null);
   const [deletingMovie, setDeletingMovie] = useState(null);
+  const [isLoading, setLoading] = useState(false);
 
   const handleEdit = (movie) => {
     setEditingMovie(movie);
@@ -81,10 +82,12 @@ export default function MovieTable({ movies }) {
       </Table>
       {editingMovie && (
         <EditMovieForm
+          movie={editingMovie}
           open={true}
           onCancel={() => {
             setEditingMovie(null);
           }}
+          isLoading={true}
         />
       )}
     </div>
