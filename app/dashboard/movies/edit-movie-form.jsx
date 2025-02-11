@@ -1,4 +1,6 @@
 "use client";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -20,19 +22,38 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { MultiSelect } from "@/components/multi-select";
 import { GENRES, RATINGS } from "@/app/lib/constants";
-import { useState } from "react";
-import { Loader2 } from "lucide-react";
 
-export default function EditMovieForm({ open, onCancel, isLoading }) {
-  const [genres, setGenres] = useState([]);
-  const [rated, setRated] = useState("");
+export default function EditMovieForm({
+  movie,
+  onSubmit,
+  onCancel,
+  isLoading,
+}) {
+  const [title, setTitle] = useState(movie?.title);
+  const [year, setYear] = useState(movie?.year);
+  const [plot, setPlot] = useState(movie?.plot);
+  const [genres, setGenres] = useState(movie?.genres || []);
+  const [rated, setRated] = useState(movie?.rated);
+  const [poster, setPoster] = useState(movie?.poster);
   const [errors, setErrors] = useState({});
+
   const genresList = GENRES.map((genre) => ({
     label: genre,
     value: genre,
   }));
-  const handleSubmitForm = () => {
-    //
+  const handleSubmitForm = async (e) => {
+    e.preventDefault();
+    onSubmit({
+      ...movie,
+      id,
+      title,
+      year,
+      genres,
+      poster,
+      rated,
+    });
+    const response = await updateMovie(movie);
+    console.log(response);
   };
   return (
     <Dialog open={open} onOpenChange={onCancel}>
@@ -46,7 +67,13 @@ export default function EditMovieForm({ open, onCancel, isLoading }) {
           <div className="space-y-4">
             <div>
               <Label htmlFor="title">Movie Title</Label>
-              <Input id="title" name="title" placeholder="Enter movie title" />
+              <Input
+                id="title"
+                name="title"
+                placeholder="Enter movie title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
               {errors.title && (
                 <p className="text-red-500 text-sm">{errors.title}</p>
               )}
@@ -58,6 +85,8 @@ export default function EditMovieForm({ open, onCancel, isLoading }) {
                 name="year"
                 type="number"
                 placeholder="Enter the year"
+                value={year}
+                onChange={(e) => setYear(Number(e.target.value))}
               />
               {errors.year && (
                 <p className="text-red-500 text-sm">{errors.year}</p>
@@ -69,6 +98,8 @@ export default function EditMovieForm({ open, onCancel, isLoading }) {
                 id="plot"
                 name="plot"
                 placeholder="Enter the movie plot"
+                value={plot}
+                onChange={(e) => setPlot(e.target.value)}
               />
               {errors.plot && (
                 <p className="text-red-500 text-sm">{errors.plot}</p>
@@ -78,7 +109,9 @@ export default function EditMovieForm({ open, onCancel, isLoading }) {
               <Label htmlFor="genres">Movie Genres</Label>
               <MultiSelect
                 list={genresList}
-                placeholder="Select Movie Genres"
+                placeholder="Select movie genres"
+                value={genres}
+                selectedItems={genres}
                 onValueChange={setGenres}
               />
               {errors.genres && (
@@ -87,7 +120,7 @@ export default function EditMovieForm({ open, onCancel, isLoading }) {
             </div>
             <div>
               <Label htmlFor="rated">Movie Rated</Label>
-              <Select onValueChange={(val) => setRated(val)}>
+              <Select value={rated} onValueChange={(val) => setRated(val)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select a rating" />
                 </SelectTrigger>
@@ -109,7 +142,8 @@ export default function EditMovieForm({ open, onCancel, isLoading }) {
                 id="poster"
                 name="poster"
                 placeholder="Enter image URL"
-                defaultValue="https://m.media-amazon.com/images/I/51WXHxGf7CL._AC_SR300,300.jpg"
+                value={poster}
+                onChange={(e) => setPoster(e.target.value)}
                 type="text"
               />
               {errors.poster && (
@@ -117,16 +151,11 @@ export default function EditMovieForm({ open, onCancel, isLoading }) {
               )}
             </div>
             <div className="w-full flex justify-end space-x-2">
-              <Button
-                type="reset"
-                variant="outline"
-                onClick={() => setErrors({})}
-              >
-                Clear Form
+              <Button type="button" variant="outline" onClick={onCancel}>
+                Cancel
               </Button>
               <Button type="submit" disabled={isLoading}>
-                {isLoading && <Loader2 className="animate-spin" />}
-                Add Movie
+                {isLoading && <Loader2 className="animate-spin" />} Save Changes
               </Button>
             </div>
           </div>
