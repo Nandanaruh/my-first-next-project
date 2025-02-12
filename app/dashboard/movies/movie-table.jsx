@@ -89,18 +89,21 @@ export default function MovieTable({ movies }) {
           ))}
         </TableBody>
       </Table>
+
       {editingMovie && (
         <EditMovieForm
           movie={editingMovie}
           onSubmit={(updatedMovie) => console.log(updatedMovie)}
-          onCancel={() => setEditingMovie(movies.id)}
+          onCancel={() => setEditingMovie(null)} // Fix: Properly reset state
         />
       )}
+
       {deletingMovie && (
         <DeleteMovieForm
           movie={deletingMovie}
           onSubmit={(deleteMovie) => console.log(deleteMovie)}
-          onCancel={() => setEditingMovie(movies.id)}
+          onCancel={() => setDeletingMovie(null)}
+          onClick={onCancel} // Fix: Properly reset state
         />
       )}
     </div>
