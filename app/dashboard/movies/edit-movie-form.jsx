@@ -10,7 +10,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   Select,
@@ -24,39 +23,50 @@ import { MultiSelect } from "@/components/multi-select";
 import { GENRES, RATINGS } from "@/app/lib/constants";
 
 export default function EditMovieForm({
-  movie,
-  onSubmit,
-  onCancel,
-  isLoading,
+  movie = {}, // Default empty object to prevent errors
+  onSubmit = () => {}, // Default empty function
+  onCancel = () => {}, // Default empty function
+  isLoading = false,
 }) {
-  const [title, setTitle] = useState(movie?.title);
-  const [year, setYear] = useState(movie?.year);
-  const [plot, setPlot] = useState(movie?.plot);
+  const [open, setOpen] = useState(true); // Fix: Track Dialog state
+
+  const [id] = useState(movie?.id);
+  const [title, setTitle] = useState(movie?.title || "");
+  const [year, setYear] = useState(movie?.year || "");
+  const [plot, setPlot] = useState(movie?.plot || "");
   const [genres, setGenres] = useState(movie?.genres || []);
-  const [rated, setRated] = useState(movie?.rated);
-  const [poster, setPoster] = useState(movie?.poster);
+  const [rated, setRated] = useState(movie?.rated || "");
+  const [poster, setPoster] = useState(movie?.poster || "");
   const [errors, setErrors] = useState({});
 
   const genresList = GENRES.map((genre) => ({
     label: genre,
     value: genre,
   }));
-  const handleSubmitForm = async (e) => {
+
+  const handleSubmitForm = (e) => {
     e.preventDefault();
+
+    if (!title) {
+      setErrors({ title: "Title is required" });
+      return;
+    }
+
     onSubmit({
-      ...movie,
       id,
       title,
       year,
+      plot,
       genres,
       poster,
       rated,
     });
-    const response = await updateMovie(movie);
-    console.log(response);
+
+    setOpen(false); // Close modal after submitting
   };
+
   return (
-    <Dialog open={open} onOpenChange={onCancel}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit Movie</DialogTitle>
@@ -88,9 +98,6 @@ export default function EditMovieForm({
                 value={year}
                 onChange={(e) => setYear(Number(e.target.value))}
               />
-              {errors.year && (
-                <p className="text-red-500 text-sm">{errors.year}</p>
-              )}
             </div>
             <div>
               <Label htmlFor="plot">Movie Plot</Label>
@@ -101,9 +108,6 @@ export default function EditMovieForm({
                 value={plot}
                 onChange={(e) => setPlot(e.target.value)}
               />
-              {errors.plot && (
-                <p className="text-red-500 text-sm">{errors.plot}</p>
-              )}
             </div>
             <div>
               <Label htmlFor="genres">Movie Genres</Label>
@@ -114,13 +118,10 @@ export default function EditMovieForm({
                 selectedItems={genres}
                 onValueChange={setGenres}
               />
-              {errors.genres && (
-                <p className="text-red-500 text-sm">{errors.genres}</p>
-              )}
             </div>
             <div>
               <Label htmlFor="rated">Movie Rated</Label>
-              <Select value={rated} onValueChange={(val) => setRated(val)}>
+              <Select value={rated} onValueChange={setRated}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select a rating" />
                 </SelectTrigger>
@@ -132,9 +133,6 @@ export default function EditMovieForm({
                   ))}
                 </SelectContent>
               </Select>
-              {errors.rated && (
-                <p className="text-red-500 text-sm">{errors.rated}</p>
-              )}
             </div>
             <div>
               <Label htmlFor="poster">Poster URL</Label>
@@ -146,12 +144,13 @@ export default function EditMovieForm({
                 onChange={(e) => setPoster(e.target.value)}
                 type="text"
               />
-              {errors.poster && (
-                <p className="text-red-500 text-sm">{errors.poster}</p>
-              )}
             </div>
             <div className="w-full flex justify-end space-x-2">
-              <Button type="button" variant="outline" onClick={onCancel}>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setOpen(false)}
+              >
                 Cancel
               </Button>
               <Button type="submit" disabled={isLoading}>

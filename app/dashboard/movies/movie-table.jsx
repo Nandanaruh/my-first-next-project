@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/table";
 import { useState } from "react";
 import EditMovieForm from "./edit-movie-form";
+import DeleteMovieForm from "./delete-movie";
+import { deleteMovie } from "@/app/lib/actions/movies";
 export default function MovieTable({ movies }) {
   const [editingMovie, setEditingMovie] = useState();
   const [deletingMovie, setDeletingMovie] = useState(null);
@@ -20,9 +22,17 @@ export default function MovieTable({ movies }) {
     setEditingMovie(movie);
   };
 
-  const handleDelete = (movie) => {
+  const handleDelete = async (movie) => {
     setDeletingMovie(movie);
+    const response = await deleteMovie(movie);
+
+    if (response.success) {
+      console.log("Success: ", response);
+    } else {
+      console.log("Deleting error: ", response);
+    }
   };
+
   return (
     <div>
       <Table>
@@ -69,7 +79,7 @@ export default function MovieTable({ movies }) {
                     variant="destructive"
                     size="sm"
                     className="min-w-[100px]"
-                    onClick={() => handleDelete(movie)}
+                    onClick={() => handleDelete(movie.id)}
                   >
                     Delete
                   </Button>
@@ -82,8 +92,15 @@ export default function MovieTable({ movies }) {
       {editingMovie && (
         <EditMovieForm
           movie={editingMovie}
-          onCancel={() => setEditingMovie(null)}
-          isLoading={true}
+          onSubmit={(updatedMovie) => console.log(updatedMovie)}
+          onCancel={() => setEditingMovie(movies.id)}
+        />
+      )}
+      {deletingMovie && (
+        <DeleteMovieForm
+          movie={deletingMovie}
+          onSubmit={(deleteMovie) => console.log(deleteMovie)}
+          onCancel={() => setEditingMovie(movies.id)}
         />
       )}
     </div>
