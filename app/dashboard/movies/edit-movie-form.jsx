@@ -22,7 +22,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { MultiSelect } from "@/components/multi-select";
 import { GENRES, RATINGS } from "@/app/lib/constants";
 
-export default function EditMovieForm({ open, movie, onCancel }) {
+export default function EditMovieForm({ open, movie, onCancel, isLoading }) {
   const [id] = useState(movie?.id);
   const [title, setTitle] = useState(movie?.title || "");
   const [year, setYear] = useState(movie?.year || "");
@@ -37,8 +37,8 @@ export default function EditMovieForm({ open, movie, onCancel }) {
     value: genre,
   }));
 
-  const handleSubmitForm = (e) => {
-    e.preventDefault();
+  const handleSubmitForm = (event) => {
+    event.preventDefault();
 
     if (!title) {
       setErrors({ title: "Title is required" });
@@ -141,11 +141,11 @@ export default function EditMovieForm({ open, movie, onCancel }) {
               />
             </div>
             <div className="w-full flex justify-end space-x-2">
-              <Button type="button" variant="outline">
+              <Button type="button" variant="outline" onClick={onCancel}>
                 Cancel
               </Button>
-              <Button type="submit">
-                {<Loader2 className="animate-spin" />} Save Changes
+              <Button type="submit" disabled={isLoading}>
+                {isLoading && <Loader2 className="animate-spin" />} Save Changes
               </Button>
             </div>
           </div>

@@ -87,11 +87,19 @@ export default function MovieTable({ movies }) {
       </Table>
 
       {editingMovie && (
-        <EditMovieForm open={true} onCancel={() => setEditingMovie(null)} />
+        <EditMovieForm
+          open={true}
+          onCancel={() => setEditingMovie(null)}
+          isLoading={true}
+        />
       )}
 
       {deletingMovie && (
-        <DeleteMovieForm open={true} onCancel={() => setDeletingMovie(null)} />
+        <DeleteMovieForm
+          open={true}
+          onCancel={() => setDeletingMovie(null)}
+          isLoading={true}
+        />
       )}
     </div>
   );
