@@ -14,23 +14,19 @@ import { useState } from "react";
 import EditMovieForm from "./edit-movie-form";
 import DeleteMovieForm from "./delete-movie";
 import { deleteMovie } from "@/app/lib/actions/movies";
+
 export default function MovieTable({ movies }) {
-  const [editingMovie, setEditingMovie] = useState();
+  const [editingMovie, setEditingMovie] = useState(null);
   const [deletingMovie, setDeletingMovie] = useState(null);
 
   const handleEdit = (movie) => {
+    //console.log("Edit movie", movie);
     setEditingMovie(movie);
   };
 
   const handleDelete = async (movie) => {
+    //console.log("Delete movie", movie);
     setDeletingMovie(movie);
-    const response = await deleteMovie(movie);
-
-    if (response.success) {
-      console.log("Success: ", response);
-    } else {
-      console.log("Deleting error: ", response);
-    }
   };
 
   return (
@@ -44,7 +40,7 @@ export default function MovieTable({ movies }) {
             <TableHead className="font-bold">Plot</TableHead>
             <TableHead className="font-bold">Rated</TableHead>
             <TableHead className="font-bold">Genres</TableHead>
-            <TableHead className="font-bold text-end">Actions</TableHead>
+            <TableHead className="text-end">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -70,7 +66,7 @@ export default function MovieTable({ movies }) {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="min-w-[100px]"
+                    className="min-w-[120px]"
                     onClick={() => handleEdit(movie)}
                   >
                     Edit
@@ -78,8 +74,8 @@ export default function MovieTable({ movies }) {
                   <Button
                     variant="destructive"
                     size="sm"
-                    className="min-w-[100px]"
-                    onClick={() => handleDelete(movie.id)}
+                    className="min-w-[120px]"
+                    onClick={() => handleDelete(movie)}
                   >
                     Delete
                   </Button>
@@ -91,20 +87,11 @@ export default function MovieTable({ movies }) {
       </Table>
 
       {editingMovie && (
-        <EditMovieForm
-          movie={editingMovie}
-          onSubmit={(updatedMovie) => console.log(updatedMovie)}
-          onCancel={() => setEditingMovie(null)} // Fix: Properly reset state
-        />
+        <EditMovieForm open={true} onCancel={() => setEditingMovie(null)} />
       )}
 
       {deletingMovie && (
-        <DeleteMovieForm
-          movie={deletingMovie}
-          onSubmit={(deleteMovie) => console.log(deleteMovie)}
-          onCancel={() => setDeletingMovie(null)}
-          onClick={onCancel} // Fix: Properly reset state
-        />
+        <DeleteMovieForm open={true} onCancel={() => setDeletingMovie(null)} />
       )}
     </div>
   );

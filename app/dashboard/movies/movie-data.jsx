@@ -28,6 +28,7 @@ export default async function MovieData() {
     }
   } catch (error) {
     console.log(error);
+    // if (moviesQuery.length() === 0) {
     return (
       <div className="flex items-center justify-center h-[150px]">
         <p className="text-red-700 font-medium animate-pulse duration-1000">
@@ -35,5 +36,6 @@ export default async function MovieData() {
         </p>
       </div>
     );
+    // }
   }
 }

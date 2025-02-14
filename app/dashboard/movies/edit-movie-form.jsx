@@ -22,14 +22,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { MultiSelect } from "@/components/multi-select";
 import { GENRES, RATINGS } from "@/app/lib/constants";
 
-export default function EditMovieForm({
-  movie = {}, // Default empty object to prevent errors
-  onSubmit = () => {}, // Default empty function
-  onCancel = () => {}, // Default empty function
-  isLoading = false,
-}) {
-  const [open, setOpen] = useState(true); // Fix: Track Dialog state
-
+export default function EditMovieForm({ open, movie, onCancel }) {
   const [id] = useState(movie?.id);
   const [title, setTitle] = useState(movie?.title || "");
   const [year, setYear] = useState(movie?.year || "");
@@ -62,14 +55,16 @@ export default function EditMovieForm({
       rated,
     });
 
-    setOpen(false); // Close modal after submitting
+    setOpen(false);
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={onCancel}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit Movie</DialogTitle>
+          <DialogTitle className="flex justify-center items-center">
+            Edit Movie
+          </DialogTitle>
           <DialogDescription>Update the selected movie</DialogDescription>
         </DialogHeader>
 
@@ -146,11 +141,11 @@ export default function EditMovieForm({
               />
             </div>
             <div className="w-full flex justify-end space-x-2">
-              <Button type="button" variant="outline" onClick={onCancel}>
+              <Button type="button" variant="outline">
                 Cancel
               </Button>
-              <Button type="submit" disabled={isLoading}>
-                {isLoading && <Loader2 className="animate-spin" />} Save Changes
+              <Button type="submit">
+                {<Loader2 className="animate-spin" />} Save Changes
               </Button>
             </div>
           </div>
