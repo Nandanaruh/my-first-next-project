@@ -1,11 +1,8 @@
-import clientPromise from "@/app/lib/mongodb";
+import { db } from "@/app/lib/mongodb";
 import { NextResponse } from "next/server";
 
 export const GET = async (req) => {
   try {
-    const client = await clientPromise();
-    //database name - sample_mflix
-    const db = client.db("sample_mflix");
     const movies = await db
       .collection("movies_new")
       .find({})

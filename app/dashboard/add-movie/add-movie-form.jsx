@@ -141,6 +141,7 @@ export default function AddMovieForm() {
             <MultiSelect
               list={genresList}
               placeholder="Select Movie Genres"
+              selectedItems={genres}
               onValueChange={setGenres}
             />
             {errors.genres && (

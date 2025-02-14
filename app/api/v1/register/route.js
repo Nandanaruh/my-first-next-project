@@ -1,4 +1,4 @@
-import clientPromise from "@/app/lib/mongodb";
+import { db } from "@/app/lib/mongodb";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 
@@ -16,8 +16,6 @@ export const POST = async (req) => {
       );
     }
     //TODO:: Do further validation
-    const client = await clientPromise();
-    const db = client.db("sample_mflix");
     const existingUser = await db.collection("users").findOne({ email });
     console.log("Is existing user", existingUser);
     if (existingUser) {

@@ -1,9 +1,7 @@
-import clientPromise from "@/app/lib/mongodb";
+import { db } from "@/app/lib/mongodb";
 import MovieTable from "./movie-table";
 export default async function MovieData() {
   try {
-    const client = await clientPromise();
-    const db = client.db("sample_mflix");
     const moviesQuery = await db
       .collection("movies_new")
       .find({})
@@ -28,7 +26,6 @@ export default async function MovieData() {
     }
   } catch (error) {
     console.log(error);
-    // if (moviesQuery.length() === 0) {
     return (
       <div className="flex items-center justify-center h-[150px]">
         <p className="text-red-700 font-medium animate-pulse duration-1000">
@@ -36,6 +33,5 @@ export default async function MovieData() {
         </p>
       </div>
     );
-    // }
   }
 }

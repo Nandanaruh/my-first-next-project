@@ -38,6 +38,7 @@ export default function EditMovieForm({ open, movie, onCancel, isLoading }) {
   }));
 
   const handleSubmitForm = (e) => {
+    //Save the updated movie to the database
     e.preventDefault();
 
     if (!title) {
