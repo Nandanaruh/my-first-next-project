@@ -23,7 +23,7 @@ import { MultiSelect } from "@/components/multi-select";
 import { GENRES, RATINGS } from "@/app/lib/constants";
 
 export default function EditMovieForm({ open, movie, onCancel, isLoading }) {
-  const [id] = useState(movie?.id);
+  const [id, setId] = useState(movie?.id);
   const [title, setTitle] = useState(movie?.title || "");
   const [year, setYear] = useState(movie?.year || "");
   const [plot, setPlot] = useState(movie?.plot || "");
@@ -37,8 +37,8 @@ export default function EditMovieForm({ open, movie, onCancel, isLoading }) {
     value: genre,
   }));
 
-  const handleSubmitForm = (event) => {
-    event.preventDefault();
+  const handleSubmitForm = (e) => {
+    e.preventDefault();
 
     if (!title) {
       setErrors({ title: "Title is required" });
@@ -62,7 +62,7 @@ export default function EditMovieForm({ open, movie, onCancel, isLoading }) {
     <Dialog open={open} onOpenChange={onCancel}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="flex justify-center items-center">
+          <DialogTitle className="flex justify-start font-semibold">
             Edit Movie
           </DialogTitle>
           <DialogDescription>Update the selected movie</DialogDescription>

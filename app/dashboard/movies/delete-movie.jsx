@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 
 export default function DeleteMovieForm({ open, movie, onCancel, isLoading }) {
-  const [id] = useState(movie?.id);
+  const [id, setId] = useState(movie?.id);
   const [title, setTitle] = useState(movie?.title || "");
   const [errors, setErrors] = useState({});
   const handleSubmitForm = (event) => {
@@ -30,9 +30,11 @@ export default function DeleteMovieForm({ open, movie, onCancel, isLoading }) {
     <Dialog open={open} onOpenChange={onCancel}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="items-center">Delete Movie</DialogTitle>
-          <DialogDescription className="items-center text-red-500">
-            Are you sure you want to delete?
+          <DialogTitle className="flex justify-start font-semibold">
+            Delete Movie
+          </DialogTitle>
+          <DialogDescription className="text-red-500">
+            Are you sure you want to delete <b>{movie?.title}</b> movie?
           </DialogDescription>
         </DialogHeader>
 

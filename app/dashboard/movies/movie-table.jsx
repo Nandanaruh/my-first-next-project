@@ -13,19 +13,16 @@ import {
 import { useState } from "react";
 import EditMovieForm from "./edit-movie-form";
 import DeleteMovieForm from "./delete-movie";
-import { deleteMovie } from "@/app/lib/actions/movies";
 
 export default function MovieTable({ movies }) {
   const [editingMovie, setEditingMovie] = useState(null);
   const [deletingMovie, setDeletingMovie] = useState(null);
 
   const handleEdit = (movie) => {
-    //console.log("Edit movie", movie);
     setEditingMovie(movie);
   };
 
   const handleDelete = async (movie) => {
-    //console.log("Delete movie", movie);
     setDeletingMovie(movie);
   };
 
@@ -88,6 +85,7 @@ export default function MovieTable({ movies }) {
 
       {editingMovie && (
         <EditMovieForm
+          movie={editingMovie}
           open={true}
           onCancel={() => setEditingMovie(null)}
           isLoading={true}
@@ -96,6 +94,7 @@ export default function MovieTable({ movies }) {
 
       {deletingMovie && (
         <DeleteMovieForm
+          movie={deletingMovie}
           open={true}
           onCancel={() => setDeletingMovie(null)}
           isLoading={true}
