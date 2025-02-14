@@ -22,8 +22,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { MultiSelect } from "@/components/multi-select";
 import { GENRES, RATINGS } from "@/app/lib/constants";
 
-export default function EditMovieForm({ open, movie, onCancel, isLoading }) {
-  const [id, setId] = useState(movie?.id);
+export default function EditMovieForm({
+  open,
+  movie,
+  onSubmit,
+  onCancel,
+  isLoading,
+}) {
   const [title, setTitle] = useState(movie?.title || "");
   const [year, setYear] = useState(movie?.year || "");
   const [plot, setPlot] = useState(movie?.plot || "");
@@ -38,25 +43,8 @@ export default function EditMovieForm({ open, movie, onCancel, isLoading }) {
   }));
 
   const handleSubmitForm = (e) => {
-    //Save the updated movie to the database
     e.preventDefault();
-
-    if (!title) {
-      setErrors({ title: "Title is required" });
-      return;
-    }
-
-    onSubmit({
-      id,
-      title,
-      year,
-      plot,
-      genres,
-      poster,
-      rated,
-    });
-
-    setOpen(false);
+    onSubmit({ ...movie, title, year, plot, genres, rated, poster });
   };
 
   return (
