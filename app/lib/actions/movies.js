@@ -55,3 +55,22 @@ export const updateMovie = async (id, movie) => {
     return { success: false, error };
   }
 };
+
+//Delete movie
+export const deleteMovie = async (id) => {
+  try {
+    const result = await db
+      .collection("movies_new")
+      .deleteOne({ _id: ObjectId.createFromHexString(id) });
+
+    console.log(`Movie was deleted :${result.deletedCount}`);
+    if (result.acknowledged) {
+      return { success: true };
+    } else {
+      return { success: false };
+    }
+  } catch (error) {
+    console.log("Mongodb delete failed!", error);
+    return { success: false, error };
+  }
+};

@@ -6,26 +6,18 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 
-export default function DeleteMovieForm({ open, movie, onCancel, isLoading }) {
-  const [id, setId] = useState(movie?.id);
-  const [title, setTitle] = useState(movie?.title || "");
-  const [errors, setErrors] = useState({});
-  const handleSubmitForm = (event) => {
-    event?.preventDefault();
-
-    if (!title) {
-      setErrors({ title: "Title is required" });
-      return;
-    }
-    onSubmit({
-      id,
-      title,
-    });
-  };
+export default function DeleteMovieForm({
+  open,
+  movie,
+  onConfirm,
+  onCancel,
+  isLoading,
+}) {
   return (
     <Dialog open={open} onOpenChange={onCancel}>
       <DialogContent>
@@ -34,22 +26,32 @@ export default function DeleteMovieForm({ open, movie, onCancel, isLoading }) {
             Delete Movie
           </DialogTitle>
           <DialogDescription className="text-red-500">
-            Are you sure you want to delete <b>{movie?.title}</b> movie?
+            Are you sure you want to delete the <b>{movie?.title}</b> movie?
+            This action cannot be undone.
           </DialogDescription>
         </DialogHeader>
-
-        <form onSubmit={handleSubmitForm}>
+        <DialogFooter>
           <div className="space-y-4">
             <div className="w-full flex justify-end space-x-2">
-              <Button type="button" variant="outline" onClick={onCancel}>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={onCancel}
+                disabled={isLoading}
+              >
                 Cancel
               </Button>
-              <Button type="submit" variant="destructive" disabled={isLoading}>
-                {isLoading && <Loader2 className="animate-spin" />} Delete
+              <Button
+                variant="destructive"
+                onClick={onConfirm}
+                disabled={isLoading}
+              >
+                {isLoading && <Loader2 className="animate-spin" />}
+                Delete
               </Button>
             </div>
           </div>
-        </form>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

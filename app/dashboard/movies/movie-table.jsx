@@ -14,14 +14,15 @@ import {
 import { useState } from "react";
 import EditMovieForm from "./edit-movie-form";
 import DeleteMovieForm from "./delete-movie";
-import { updateMovie } from "@/app/lib/actions/movies";
+import { updateMovie, deleteMovie } from "@/app/lib/actions/movies";
 
 export default function MovieTable({ movies }) {
   const [isSaving, setIsSaving] = useState(false);
+  const [isDeleting, setDeleting] = useState(false);
   const [editingMovie, setEditingMovie] = useState(null);
   const [deletingMovie, setDeletingMovie] = useState(null);
   const router = useRouter();
-
+  //Update a movie
   const handleEdit = (movie) => {
     setEditingMovie(movie);
   };
@@ -43,11 +44,19 @@ export default function MovieTable({ movies }) {
       router.refresh();
     }
   };
-
+  //Delete a movie
   const handleDelete = async (movie) => {
     setDeletingMovie(movie);
   };
-
+  const handleDeleteConfirm = async (movieId) => {
+    setDeleting(true);
+    const resp = await deleteMovie(movieId);
+    setDeleting(false);
+    if (resp?.success) {
+      setDeletingMovie(null);
+      router.refresh();
+    }
+  };
   return (
     <div>
       <Table>
@@ -120,7 +129,8 @@ export default function MovieTable({ movies }) {
           movie={deletingMovie}
           open={true}
           onCancel={() => setDeletingMovie(null)}
-          isLoading={true}
+          onConfirm={() => handleDeleteConfirm(deletingMovie?.id)}
+          isLoading={isDeleting}
         />
       )}
     </div>

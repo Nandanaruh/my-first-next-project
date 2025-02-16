@@ -130,7 +130,12 @@ export default function EditMovieForm({
               />
             </div>
             <div className="w-full flex justify-end space-x-2">
-              <Button type="button" variant="outline" onClick={onCancel}>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={onCancel}
+                disabled={isLoading}
+              >
                 Cancel
               </Button>
               <Button type="submit" disabled={isLoading}>
