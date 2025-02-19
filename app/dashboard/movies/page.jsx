@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import { Eye, LoaderCircle } from "lucide-react";
+import { Eye, LoaderCircle, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
