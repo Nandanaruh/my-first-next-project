@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -11,19 +12,19 @@ export default function Home() {
       </div>
       <div className="flex flex-row space-x-4">
         <div>
-          <Button className="bg-blue-500 w-[120px] hover:bg-blue-400">
-            <a href="/login" className="text-xs text-blue-950 no-underline">
+          <Link href="/login">
+            <Button className="bg-blue-500 w-[120px] text-xs hover:bg-blue-400 text-blue-950">
               Login
-            </a>
-          </Button>
+            </Button>
+          </Link>
         </div>
         <span>or</span>
         <div>
-          <Button className="bg-green-500 w-[120px] hover:bg-green-400">
-            <a href="/register" className="text-xs text-green-950 no-underline">
+          <Link href="/register">
+            <Button className="bg-green-500 w-[120px] text-xs hover:bg-green-400 text-green-950">
               Register
-            </a>
-          </Button>
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
