@@ -1,15 +1,18 @@
 "use client";
-import { useState } from "react";
+import { useState, Suspense } from "react";
+import { searchMovies } from "@/app/lib/actions/movies";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search } from "lucide-react";
+import { Search, LoaderCircle } from "lucide-react";
+import SearchMovieData from "./search-movie-data";
 
 export default function SearchMovieForm() {
   const [search, setSearch] = useState("");
   const [isLoading, setLoading] = useState(false);
+  const [movies, setMovies] = useState([]);
   const [errors, setErrors] = useState({});
 
-  const searchRegex = /^[a-zA-Z0-9]+$/;
+  const searchRegex = /^[a-zA-Z0-9\s]+$/;
   const validateForm = (search) => {
     let errors = {};
     if (!search) {
@@ -25,7 +28,7 @@ export default function SearchMovieForm() {
     const value = event.target.value;
     setSearch(value);
 
-    if (searchRegex.test(value) || value === "") {
+    if (value === "" || searchRegex.test(value)) {
       setErrors({ search: "" });
     } else {
       setErrors({
@@ -37,13 +40,31 @@ export default function SearchMovieForm() {
 
   const handleSearch = async (event) => {
     event?.preventDefault();
+    setLoading(true);
     const formData = new FormData(event?.currentTarget);
     const search = formData.get("search").toString();
-    console.log("SEARCH TEXT::", search);
+
     const validationErrors = validateForm(search);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
+    }
+
+    try {
+      const results = await searchMovies(search);
+      setMovies(results);
+      console.log(results);
+    } catch (error) {
+      console.log("Search error ::", error);
+      return (
+        <div className="flex items-center justify-center h-[150px]">
+          <p className="text-red-700 font-medium animate-pulse duration-1000">
+            No Movies Available!
+          </p>
+        </div>
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -66,13 +87,22 @@ export default function SearchMovieForm() {
               )}
             </div>
             <div className="flex flex-col w-[120px]">
-              <Button variant="outline" type="submit">
+              <Button variant="outline" type="submit" disabled={isLoading}>
                 <Search /> Search
               </Button>
             </div>
           </div>
         </div>
       </form>
+      <Suspense
+        fallback={
+          <div className="flex items-center justify-center h-[186px]">
+            <LoaderCircle className="animate-spin duration-1000 text-blue-500" />
+          </div>
+        }
+      >
+        <SearchMovieData movies={movies} />
+      </Suspense>
     </div>
   );
 }

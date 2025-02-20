@@ -74,3 +74,27 @@ export const deleteMovie = async (id) => {
     return { success: false, error };
   }
 };
+//Search movie
+export const searchMovies = async (search) => {
+  console.log(search);
+  try {
+    const searchResults = await db
+      .collection("movies_new")
+      .find({
+        $or: [
+          { title: { $regex: new RegExp(search, "i") } },
+          { plot: { $regex: new RegExp(search, "i") } },
+          { genres: { $regex: new RegExp(search, "i") } },
+          { rated: { $regex: new RegExp(search, "i") } },
+          { year: { $regex: new RegExp(`^${search}`, "i") } }, // Searches by prefix match
+        ],
+      })
+      .limit(10)
+      .toArray();
+
+    console.log(searchResults);
+    return searchResults;
+  } catch (error) {
+    console.log("Error searching movie: ", error);
+  }
+};
