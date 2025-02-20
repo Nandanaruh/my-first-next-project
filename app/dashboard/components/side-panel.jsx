@@ -15,6 +15,7 @@ import {
   Users,
   LayoutDashboard,
   Clapperboard,
+  Search,
 } from "lucide-react";
 
 const items = [
@@ -46,6 +47,12 @@ const items = [
     name: "Settings",
     href: "/dashboard/settings",
     icon: Settings,
+    color: "text-primary-400",
+  },
+  {
+    name: "Search",
+    href: "/dashboard/search",
+    icon: Search,
     color: "text-primary-400",
   },
 ];
