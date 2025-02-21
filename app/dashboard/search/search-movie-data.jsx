@@ -13,7 +13,7 @@ export async function searchMovies(query) {
         { plot: { $regex: new RegExp(query, "i") } },
         { genres: { $regex: new RegExp(query, "i") } },
         { rated: { $regex: new RegExp(query, "i") } },
-        { year: { $regex: new RegExp(`^${query}`, "i") } },
+        { year: { $regex: new RegExp(`^${query}`, "i").toString() } },
       ],
     })
     .limit(10)
