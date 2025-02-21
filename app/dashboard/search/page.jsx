@@ -90,7 +90,8 @@ export default function MoviesPage() {
             name="search"
             value={search}
             onChange={handleInputChange}
-            placeholder="Search your movie here"
+            placeholder="Search your movie here..."
+            title="Search your movie here..."
           />
           <div className="flex justify-center items-center my-1">
             {errors.search && (
