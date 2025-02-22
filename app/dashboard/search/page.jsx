@@ -93,6 +93,7 @@ export default function MoviesPage() {
             placeholder="Search your movie here..."
             title="Search your movie here..."
           />
+          {/* search icon - position with css */}
           <div className="flex justify-center items-center my-1">
             {errors.search && (
               <p className="text-red-500 text-sm">{errors.search}</p>
@@ -106,12 +107,16 @@ export default function MoviesPage() {
           <LoaderCircle className="animate-spin text-blue-500" />
         </div>
       )}
-      {!isLoading && movies.length > 0 && (
+      {!isLoading && movies.length > 0 ? ( //should be remove
         <Card>
           <CardContent>
             <MovieTable movies={movies} />
           </CardContent>
         </Card>
+      ) : (
+        <div className="flex items-center justify-center text-green-500">
+          Enter search text...
+        </div>
       )}
     </div>
   );

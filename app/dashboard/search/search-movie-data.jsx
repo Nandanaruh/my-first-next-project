@@ -3,7 +3,7 @@
 import { db } from "@/app/lib/mongodb";
 
 export async function searchMovies(query) {
-  if (!query) return [];
+  if (!query) return []; // when empty query fetch all movies
 
   const searchResults = await db
     .collection("movies_new")
@@ -13,7 +13,7 @@ export async function searchMovies(query) {
         { plot: { $regex: new RegExp(query, "i") } },
         { genres: { $regex: new RegExp(query, "i") } },
         { rated: { $regex: new RegExp(query, "i") } },
-        { year: { $regex: new RegExp(`^${query}`, "i").toString() } },
+        { year: Number(query) },
       ],
     })
     .limit(10)
