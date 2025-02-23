@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -35,6 +35,16 @@ export default function EditMovieForm({
   const [genres, setGenres] = useState(movie?.genres || []);
   const [rated, setRated] = useState(movie?.rated || "");
   const [poster, setPoster] = useState(movie?.poster || "");
+
+  useEffect(() => {
+    setTitle(movie?.title || "");
+    setYear(movie?.year || "");
+    setPlot(movie?.plot || "");
+    setGenres(movie?.genres || []);
+    setRated(movie?.rated || "");
+    setPoster(movie?.poster || "");
+  }, [movie]);
+
   const [errors, setErrors] = useState({});
 
   const genresList = GENRES.map((genre) => ({
