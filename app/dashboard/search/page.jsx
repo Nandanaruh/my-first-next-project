@@ -85,7 +85,7 @@ export default function MoviesPage() {
       <div className="flex flex-col items-center justify-center my-2">
         <div className="w-full max-w-md px-2">
           <Input
-            className="max-w-2xl mx-2"
+            className="max-w-2xl mx-2 text-green-500"
             id="search"
             name="search"
             value={search}
@@ -94,7 +94,7 @@ export default function MoviesPage() {
             title="Search your movie here..."
           />
           {/* search icon - position with css */}
-          <div className="flex justify-center items-center my-1">
+          <div className="flex justify-center items-center">
             {errors.search && (
               <p className="text-red-500 text-sm">{errors.search}</p>
             )}
@@ -115,7 +115,7 @@ export default function MoviesPage() {
         </Card>
       ) : (
         <div className="flex items-center justify-center text-green-500">
-          Enter search text...
+          Search your movie here...
         </div>
       )}
     </div>
