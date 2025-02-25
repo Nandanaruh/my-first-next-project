@@ -137,15 +137,16 @@ export default function AddMovieForm() {
             )}
           </div>
           <div>
-            <Label htmlFor="genres">Movie Genres</Label>
-            <MultiSelect
-              list={genresList}
-              placeholder="Select Movie Genres"
-              selectedItems={genres}
-              onValueChange={setGenres}
+            <Label htmlFor="poster">Poster URL</Label>
+            <Input
+              id="poster"
+              name="poster"
+              placeholder="Enter image URL"
+              defaultValue="https://m.media-amazon.com/images/I/51WXHxGf7CL._AC_SR300,300.jpg"
+              type="text"
             />
-            {errors.genres && (
-              <p className="text-red-500 text-sm">{errors.genres}</p>
+            {errors.poster && (
+              <p className="text-red-500 text-sm">{errors.poster}</p>
             )}
           </div>
           <div>
@@ -167,16 +168,15 @@ export default function AddMovieForm() {
             )}
           </div>
           <div>
-            <Label htmlFor="poster">Poster URL</Label>
-            <Input
-              id="poster"
-              name="poster"
-              placeholder="Enter image URL"
-              defaultValue="https://m.media-amazon.com/images/I/51WXHxGf7CL._AC_SR300,300.jpg"
-              type="text"
+            <Label htmlFor="genres">Movie Genres</Label>
+            <MultiSelect
+              list={genresList}
+              placeholder="Select Movie Genres"
+              selectedItems={genres}
+              onValueChange={setGenres}
             />
-            {errors.poster && (
-              <p className="text-red-500 text-sm">{errors.poster}</p>
+            {errors.genres && (
+              <p className="text-red-500 text-sm">{errors.genres}</p>
             )}
           </div>
         </CardContent>
