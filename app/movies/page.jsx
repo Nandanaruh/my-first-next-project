@@ -1,8 +1,8 @@
+import Link from "next/link";
 import Image from "next/image";
-import { LayoutDashboard, ArrowBigRight, ArrowBigLeft } from "lucide-react";
+import { LayoutDashboard, ChevronRight, ChevronLeft } from "lucide-react";
 import { FaStar } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getMovies } from "@/app/lib/server";
@@ -88,7 +88,7 @@ export default async function MoviesPublicPage({ searchParams = {} }) {
         {page > 1 && (
           <Link href={`?page=${page - 1}`}>
             <Button className="bg-white" variant="outline">
-              <ArrowBigLeft className="hover:text-blue-500" />
+              <ChevronLeft className="hover:text-blue-500" />
             </Button>
           </Link>
         )}
@@ -98,7 +98,7 @@ export default async function MoviesPublicPage({ searchParams = {} }) {
         {page < totalPages && (
           <Link href={`?page=${page + 1}`}>
             <Button className="bg-white" variant="outline">
-              <ArrowBigRight className="hover:text-blue-500" />
+              <ChevronRight className="hover:text-blue-500" />
             </Button>
           </Link>
         )}
