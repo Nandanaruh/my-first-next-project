@@ -1,6 +1,5 @@
 "use client";
-import { AvatarImage } from "@/components/ui/avatar";
-import { useRouter } from "next/navigation";
+import { AvatarImage, Avatar } from "@/components/ui/avatar";
 import {
   Table,
   TableBody,
@@ -9,50 +8,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useState } from "react";
-import { Avatar } from "@radix-ui/react-avatar";
 
-export default function UserTable({ movies }) {
-  const [isSaving, setIsSaving] = useState(false);
-  const [isDeleting, setDeleting] = useState(false);
-  const [editingMovie, setEditingMovie] = useState(null);
-  const [deletingMovie, setDeletingMovie] = useState(null);
-  const router = useRouter();
-  //Update a movie
-  const handleEdit = (movie) => {
-    setEditingMovie(movie);
-  };
-
-  const handleEditSubmit = async (movie) => {
-    const { id, name, email, plot, genres, rated, poster } = movie; //title = movie.title when destructuring in Java script ES6
-    setIsSaving(true);
-    const resp = await updateMovie(id, {
-      name,
-      email,
-      plot,
-      genres,
-      rated,
-      poster,
-    });
-    setIsSaving(false);
-    if (resp?.success) {
-      setEditingMovie(null);
-      router.refresh();
-    }
-  };
-  //Delete a movie
-  const handleDelete = async (movie) => {
-    setDeletingMovie(movie);
-  };
-  const handleDeleteConfirm = async (movieId) => {
-    setDeleting(true);
-    const resp = await deleteMovie(movieId);
-    setDeleting(false);
-    if (resp?.success) {
-      setDeletingMovie(null);
-      router.refresh();
-    }
-  };
+export default function UserTable({ users }) {
   return (
     <div>
       <Table>
@@ -65,8 +22,8 @@ export default function UserTable({ movies }) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {movies.map((movie) => (
-            <TableRow key={movie.id}>
+          {users.map((user) => (
+            <TableRow key={user.id}>
               <TableCell>
                 <Avatar>
                   <AvatarImage
@@ -75,8 +32,8 @@ export default function UserTable({ movies }) {
                   />
                 </Avatar>
               </TableCell>
-              <TableCell>{movie?.name ?? "N/A"}</TableCell>
-              <TableCell>{movie?.email ?? "N/A"}</TableCell>
+              <TableCell>{user?.name ?? "N/A"}</TableCell>
+              <TableCell>{user?.email ?? "N/A"}</TableCell>
               <TableCell className="text-green-500">Active</TableCell>
             </TableRow>
           ))}

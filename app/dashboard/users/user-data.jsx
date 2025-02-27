@@ -2,23 +2,23 @@ import { db } from "@/app/lib/mongodb";
 import UserTable from "./user-table";
 export default async function UserData() {
   try {
-    const moviesQuery = await db
+    const usersQuery = await db
       .collection("user")
       .find({})
       .sort({ metacritic: -1 })
       .limit(5)
       .toArray();
 
-    if (moviesQuery) {
+    if (usersQuery) {
       //Refine users query to an array
-      const refinedMovies = moviesQuery.map((movie) => ({
-        id: movie._id.toString(),
-        name: movie.name,
-        email: movie.email,
+      const refinedUsers = usersQuery.map((user) => ({
+        id: user._id.toString(),
+        name: user.name,
+        email: user.email,
       }));
       //Pass users refined data to table
       //Return user table
-      return <UserTable movies={refinedMovies} />;
+      return <UserTable users={refinedUsers} />;
     }
   } catch (error) {
     console.log(error);

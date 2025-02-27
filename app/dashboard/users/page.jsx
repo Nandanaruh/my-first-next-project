@@ -16,7 +16,7 @@ export default function MoviesPage() {
         <CardHeader>
           <CardTitle>User Management</CardTitle>
           <CardDescription>
-            View and Manage all Users on The Mflix Dashboard.
+            View all users on the MFlix dashboard.
           </CardDescription>
         </CardHeader>
         <CardContent>
