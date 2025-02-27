@@ -15,10 +15,6 @@ export default async function UserData() {
         id: movie._id.toString(),
         name: movie.name,
         email: movie.email,
-        plot: movie.plot,
-        rated: movie.rated,
-        genres: movie.genres,
-        poster: movie.poster,
       }));
       //Pass users refined data to table
       //Return user table
@@ -29,7 +25,7 @@ export default async function UserData() {
     return (
       <div className="flex items-center justify-center h-[150px]">
         <p className="text-red-700 font-medium animate-pulse duration-1000">
-          No Movies Available!
+          Users Not Found!
         </p>
       </div>
     );
