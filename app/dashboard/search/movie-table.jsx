@@ -57,13 +57,13 @@ export default function MovieTable({ movies }) {
         </Table>
       </div>
     );
-  } else {
-    return (
-      <div className="flex items-center justify-center mt-1">
-        <h4 className="flex items-center justify-center text-green-600 text-sm mt-1">
-          Enter search text!
-        </h4>
-      </div>
-    );
-  }
+  } //else {
+  //   return (
+  //     <div className="flex items-center justify-center mt-1">
+  //       <h4 className="flex items-center justify-center text-green-600 text-sm mt-1">
+  //         Enter search text!
+  //       </h4>
+  //     </div>
+  //   );
+  // }
 }
