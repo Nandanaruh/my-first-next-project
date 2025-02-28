@@ -15,10 +15,8 @@ export default function MoviesPage() {
     <div className="space-y-4">
       <Card>
         <CardHeader>
-          <CardTitle>Movies Management</CardTitle>
-          <CardDescription>
-            View and manage all listed movie entries.
-          </CardDescription>
+          <CardTitle>Movies</CardTitle>
+          <CardDescription>Movies form MFlix movie entries.</CardDescription>
         </CardHeader>
         <CardContent>
           <Suspense
@@ -29,13 +27,15 @@ export default function MoviesPage() {
             }
           >
             <MovieData />
-            <CardHeader>
-              <CardTitle>User Management</CardTitle>
-              <CardDescription>
-                View all users on the MFlix dashboard.
-              </CardDescription>
-            </CardHeader>
-            <UserData />
+            <Card className="mt-3">
+              <CardHeader>
+                <CardTitle>Users</CardTitle>
+                <CardDescription>
+                  Active users on the MFlix dashboard.
+                </CardDescription>
+              </CardHeader>
+              <UserData />
+            </Card>
           </Suspense>
         </CardContent>
       </Card>
