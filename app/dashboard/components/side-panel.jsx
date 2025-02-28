@@ -44,15 +44,15 @@ const items = [
     color: "text-primary-400",
   },
   {
-    name: "Settings",
-    href: "/dashboard/settings",
-    icon: Settings,
-    color: "text-primary-400",
-  },
-  {
     name: "Search",
     href: "/dashboard/search",
     icon: Search,
+    color: "text-primary-400",
+  },
+  {
+    name: "Settings",
+    href: "/dashboard/settings",
+    icon: Settings,
     color: "text-primary-400",
   },
 ];
