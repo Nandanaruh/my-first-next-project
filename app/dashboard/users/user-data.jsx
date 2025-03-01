@@ -1,5 +1,6 @@
 import { db } from "@/app/lib/mongodb";
 import UserTable from "./user-table";
+
 export default async function UserData() {
   try {
     const usersQuery = await db

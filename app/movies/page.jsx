@@ -7,6 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getMovies } from "@/app/lib/server";
 
+// export const revalidate = 60; // Revalidate in every 60 seconds
+export const dynamic = "force-dynamic";
+
 export default async function MoviesPublicPage({ searchParams = {} }) {
   const moviesQuery = await getMovies();
   const movies = moviesQuery || [];

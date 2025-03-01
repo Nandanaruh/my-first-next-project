@@ -1,5 +1,6 @@
 import { db } from "@/app/lib/mongodb";
 import MovieTable from "./movie-table";
+export const revalidate = 60;
 export default async function MovieData() {
   try {
     const moviesQuery = await db
