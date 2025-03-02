@@ -1,14 +1,22 @@
 import { api } from "@/app/lib/api";
 
 export const loginUser = async (loginData) => {
-  const response = await fetch("http://localhost:3000/api/v1/login", {
-    method: "POST",
-    body: JSON.stringify({
-      email: loginData?.email,
-      password: loginData?.password,
-    }),
-  });
-  console.log("LOGIN ACTION", response.json());
+  try {
+    const response = await fetch("http://localhost:3000/api/v1/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: loginData?.email,
+        password: loginData?.password,
+      }),
+    });
+    const data = await response.json();
+    console.log("LOGIN ACTION", data);
+    return response.ok ? data : undefined;
+  } catch (error) {
+    console.error("Login Error", error);
+    return undefined;
+  }
 };
 // Register user
 export const registerUser = async (formData) => {
