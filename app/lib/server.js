@@ -71,7 +71,7 @@ export const registerUser = async (formData) => {
 
 export const getMovies = async () => {
   try {
-    const response = await fetch("v1/movies", {
+    const response = await api.get("v1/movies", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       cache: "no-store", // Ensures fresh data
