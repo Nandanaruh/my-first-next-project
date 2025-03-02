@@ -115,6 +115,7 @@ import { FaStar } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getMovies } from "@/app/lib/server";
 
 export const dynamic = "force-dynamic";
 
