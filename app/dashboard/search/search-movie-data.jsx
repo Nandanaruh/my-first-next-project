@@ -1,5 +1,5 @@
 "use server";
-import { db } from "@/app/lib/mongodb";
+import { db } from "@/lib/mongodb";
 export async function searchMovies(query) {
   if (!query) return []; // when empty query fetch all movies
 

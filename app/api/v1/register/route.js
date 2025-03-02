@@ -1,4 +1,4 @@
-import { db } from "@/app/lib/mongodb";
+import { db } from "@/lib/mongodb";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 

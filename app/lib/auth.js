@@ -1,5 +1,5 @@
 import { betterAuth } from "better-auth";
-import { db } from "@/app/lib/mongodb";
+import { db } from "@/lib/mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 
 export const auth = betterAuth({

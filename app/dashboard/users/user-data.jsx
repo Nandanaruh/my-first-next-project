@@ -1,4 +1,4 @@
-import { db } from "@/app/lib/mongodb";
+import { db } from "@/lib/mongodb";
 import UserTable from "./user-table";
 
 export default async function UserData() {
