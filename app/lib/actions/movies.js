@@ -1,5 +1,5 @@
 "use server";
-import { db } from "../mongodb";
+import { db } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 
 export const createMovie = async (movie) => {
