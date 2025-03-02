@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/card";
 import MovieData from "./movie-data";
 
+export const dynamic = "force-dynamic";
+
 export default function MoviesPage() {
   return (
     <div className="space-y-4">
