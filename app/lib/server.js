@@ -1,4 +1,4 @@
-import { api } from "@/app/lib/api";
+import { api } from "@/lib/api";
 
 export const loginUser = async (loginData) => {
   try {
@@ -44,9 +44,11 @@ export const registerUser = async (formData) => {
 export const getMovies = async () => {
   try {
     // const response = await api.get("v1/movies", { cache: "no-store" });
-    const response = await fetch(`${process.env.API_BASE_URL}/v1/movies`, {
-      cache: "no-store",
-    });
+    // const response = await fetch(`${process.env.API_BASE_URL}/v1/movies`, {
+    //   cache: "no-store",
+    // });
+
+    const response = await api.get("v1/movies", { cache: "no-store" });
 
     // Ensure response is ok and has JSON content
     if (!response.ok) {
