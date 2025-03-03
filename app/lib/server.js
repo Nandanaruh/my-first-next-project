@@ -40,66 +40,7 @@ export const registerUser = async (formData) => {
     return undefined;
   }
 };
-
-//Get movies using api.get
-// export const getMovies = async () => {
-//   try {
-//     const response = await api.get("v1/movies", {
-//       method: "GET",
-//       headers: { "Content-Type": "application/json" },
-//       cache: "no-store", // Ensures fresh data
-//     });
-
-//     if (response.ok) {
-//       return response.json();
-//     } else {
-//       console.log("error");
-//     }
-//   } catch (error) {
-//     if (error?.response) {
-//       const { status } = error.response;
-//       const responseBody = await error?.response?.json();
-//       if (status === 401) {
-//         console.log("Unauthorized, check your credentials");
-//       } else if (status === 500) {
-//         console.log("Server error, please try again later.");
-//       } else if (status === 404) {
-//         console.log(status, responseBody.message);
-//       }
-//     } else {
-//       console.log("Unknown error", error);
-//     }
-//     return undefined;
-//   }
-// };
-
-// export const getMovies = async () => {
-//   try {
-//     const response = await api.get("v1/movies", {
-//       method: "GET",
-//       headers: { "Content-Type": "application/json" },
-//       cache: "no-store", // Ensures fresh data
-//     });
-
-//     // Check if response is valid JSON before parsing
-//     const contentType = response.headers.get("content-type");
-//     if (!response.ok) {
-//       console.error(`API Error: ${response.status} ${response.statusText}`);
-//       return []; // Return an empty array on failure
-//     }
-
-//     if (contentType && contentType.includes("application/json")) {
-//       return await response.json();
-//     } else {
-//       console.error("Received non-JSON response:", await response.text());
-//       return [];
-//     }
-//   } catch (error) {
-//     console.error("Error fetching movies:", error);
-//     return [];
-//   }
-// };
-
+//Get movie data
 export const getMovies = async () => {
   try {
     const response = await api.get("v1/movies", { cache: "no-store" });
