@@ -44,7 +44,7 @@ export const registerUser = async (formData) => {
 export const getMovies = async () => {
   try {
     // const response = await api.get("v1/movies", { cache: "no-store" });
-    const response = await fetch("/v1/movies", {
+    const response = await fetch("v1/movies", {
       cache: "no-store",
     });
 
