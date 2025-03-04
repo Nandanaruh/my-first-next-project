@@ -18,7 +18,6 @@ export default async function MoviesPublicPage({ searchParams = {} }) {
       <div className="text-red-500 text-center">Failed to load movies.</div>
     );
   }
-
   // Pagination setup
   const page = Number(searchParams?.page) || 1;
   const limit = 4;
