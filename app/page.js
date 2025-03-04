@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
       <div className="m-5">
-        <h1 className="font-sans font-bold text-center text-6xl md:text-5xl lg:text-6xl leading-snug text-gray-700">
+        <h1 className="font-sans font-bold text-center text-6xl md:text-5xl lg:text-6xl leading-tight text-gray-700">
           Welcome to Evotec <br />
           Mflix Movie Dashboard
         </h1>
