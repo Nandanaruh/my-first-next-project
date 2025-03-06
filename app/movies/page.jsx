@@ -25,7 +25,7 @@ export default async function MoviesPublicPage({ searchParams = {} }) {
   const paginatedMovies = movies.slice((page - 1) * limit, page * limit);
 
   return (
-    <div className="space-y-4 mx-8 mt-10">
+    <div className="flex flex-col space-y-4 mx-8 mt-10 overflow-y-auto min-h-screen">
       <div className="flex flex-row justify-between items-center">
         <h1 className="text-blue-500 text-2xl font-bold">Browse Movies</h1>
         <Link href="/dashboard/movies">
@@ -40,7 +40,7 @@ export default async function MoviesPublicPage({ searchParams = {} }) {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {paginatedMovies.map((movie) => (
-            <div key={movie._id} className="h-[480px]">
+            <div key={movie._id} className="h-auto">
               <Card className="h-full">
                 <CardHeader>
                   <CardTitle>
@@ -59,7 +59,7 @@ export default async function MoviesPublicPage({ searchParams = {} }) {
                         alt={movie?.title}
                         width={200}
                         height={400}
-                        className="h-full w-auto object-contain brightness-90 transition-transform duration-300 hover:brightness-105 hover:scale-105 hover:shadow-lg"
+                        className="h-full w-auto object-contain brightness-90 transition-transform duration-300"
                         priority
                       />
                     )}
