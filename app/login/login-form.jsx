@@ -70,7 +70,7 @@ export default function LoginForm({ title }) {
   };
 
   return (
-    <div className="w-[380px] mx-auto">
+    <div className="flex justify-center items-center min-h-screen">
       <Card className="bg-white w-[380px]">
         <div className="p-4">
           <form onSubmit={handleSubmit} className="space-y-5">
