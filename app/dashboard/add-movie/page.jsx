@@ -1,5 +1,4 @@
 import AddMovieForm from "./add-movie-form";
-
 //Server component
 export default function AddMoviePage() {
   return (

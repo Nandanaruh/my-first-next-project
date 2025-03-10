@@ -21,8 +21,7 @@ export default async function MovieData() {
         genres: movie.genres,
         poster: movie.poster,
       }));
-      //Pass movies refined data to table
-      //Return movie table
+      //Pass movies refined data to table and return movie table
       return <MovieTable movies={refinedMovies} />;
     }
   } catch (error) {

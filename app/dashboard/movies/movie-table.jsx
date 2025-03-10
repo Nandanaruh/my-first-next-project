@@ -112,7 +112,6 @@ export default function MovieTable({ movies }) {
           ))}
         </TableBody>
       </Table>
-
       {editingMovie && (
         <EditMovieForm
           movie={editingMovie}
@@ -122,7 +121,6 @@ export default function MovieTable({ movies }) {
           isLoading={isSaving}
         />
       )}
-
       {deletingMovie && (
         <DeleteMovieForm
           movie={deletingMovie}
