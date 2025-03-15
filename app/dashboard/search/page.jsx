@@ -100,9 +100,9 @@ export default function MoviesPage() {
             )}
           </div>
         </div>
-        <div className="-mt-7 ml-96 text-gray-300">
+        {/* <div className="-mt-7 ml-96 text-gray-300">
           <Search />
-        </div>
+        </div> */}
       </div>
       {isLoading && (
         <div className="flex items-center justify-center h-[186px]">
