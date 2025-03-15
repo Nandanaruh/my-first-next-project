@@ -100,8 +100,10 @@ export default function MoviesPage() {
             )}
           </div>
         </div>
+        <div className="-mt-7 ml-96 text-gray-300">
+          <Search />
+        </div>
       </div>
-
       {isLoading && (
         <div className="flex items-center justify-center h-[186px]">
           <LoaderCircle className="animate-spin text-blue-500" />
@@ -114,7 +116,7 @@ export default function MoviesPage() {
           </CardContent>
         </Card>
       ) : (
-        <div className="flex items-center justify-center text-green-500">
+        <div className="flex items-center justify-center text-green-500 my-8">
           Search your movie here...
         </div>
       )}
