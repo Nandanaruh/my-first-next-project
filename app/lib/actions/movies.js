@@ -4,14 +4,8 @@ import { ObjectId } from "mongodb";
 
 export const createMovie = async (movie) => {
   try {
-    // Check if movie already exists
-    const normalizedTitle = movie.title
-      .replace(/\s+/g, " ")
-      .trim()
-      .toLowerCase();
     const existingMovie = await db.collection("movies_new").findOne({
-      //title: movie.title,
-      title: normalizedTitle,
+      title: movie.title,
       year: movie.year,
     });
 
